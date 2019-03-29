@@ -1,0 +1,28 @@
+﻿.navigation {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99; }
+  .navigation .navbar-nav a {
+    color: white !important;
+    transition: 0.4s ease;
+    margin: 0 1.4px; }
+  .navigation .bg-dark {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.219)) !important; }
+  .navbar-brand{ 
+    font-family: 'Germania One', cursive;
+    font-size: 34px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    letter-spacing: 2px !important;
+    margin-left: 5%;
+    color: #e36488 !important;}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #db3b61; }
+
+.nv a:hover {
+  background-color: #db3b61 !important; }
+
