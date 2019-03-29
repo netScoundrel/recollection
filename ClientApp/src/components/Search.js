@@ -34,8 +34,8 @@ export default class Search extends Component {
     e.preventDefault();
 
     this.setState({
-      isCollapsed: !this.state.isCollapsed,
-      isClickable: !this.state.isClickable
+      isCollapsed: true,
+      isClickable: true
     })
     document.querySelector('.bar').setAttribute('style', 'border: none;')
   }

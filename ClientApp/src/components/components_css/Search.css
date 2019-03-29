@@ -8,11 +8,11 @@
     border-radius: 4px;
     width: 0;
     border: 0;
-    transition: .4s ease;
+    transition: .25s ease;
 }
 
 #field::placeholder{
-    color: white;
+    color: rgba(255, 255, 255, 0.493);
     letter-spacing: 2px;
 }
 
