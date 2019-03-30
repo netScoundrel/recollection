@@ -27,7 +27,7 @@ export default class Search extends Component {
     });
 
     document.querySelector('#field').setAttribute('style', 'visibility: visible;');
-    document.querySelector('.bar').setAttribute('style', 'border: 2px white solid; background-color: #141414;');
+    document.querySelector('.bar').setAttribute('style', 'border: .3px white solid; background-color: #141414;');
 
     setTimeout(()=> {
       field.focus();

@@ -1,0 +1,9 @@
+.feed{
+    display: block;
+    position: relative;
+    left: 17.5%;
+    top: 0;
+    width: 65% !important;
+    height: 120rem;
+    background-color: #d56073;
+}

@@ -1,10 +1,16 @@
 ﻿body{
+  height: 100%;
+  width: 100%;
   margin-top: 3.9rem;
+
 }
+
   .navigation .navbar-nav a {
     color: white !important;
     transition: 0.4s ease;
+    
     margin: 0 1.4px; }
+
   .navigation .bg-dark {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.219)) !important; }
   .navbar-brand{ 
@@ -26,6 +32,7 @@
 
 .navigation{
   position: fixed;
+  z-index: 99;
   top:0;
   left: 0;
   width: 100%;
