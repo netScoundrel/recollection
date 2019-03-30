@@ -3,6 +3,7 @@
 }
 
 #field{
+    visibility: hidden; 
     color: white;
     background-color: #141414;
     border-radius: 4px;

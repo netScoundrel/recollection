@@ -26,8 +26,12 @@ export default class Search extends Component {
       isClickable: !this.state.isClickable,
     });
 
-    field.focus();
-    document.querySelector('.bar').setAttribute('style', 'border: 2px white solid; background-color: #141414;')
+    document.querySelector('#field').setAttribute('style', 'visibility: visible;');
+    document.querySelector('.bar').setAttribute('style', 'border: 2px white solid; background-color: #141414;');
+
+    setTimeout(()=> {
+      field.focus();
+    }, 120)
   }
 
   handleBlur(e){
@@ -37,7 +41,9 @@ export default class Search extends Component {
       isCollapsed: true,
       isClickable: true
     })
-    document.querySelector('.bar').setAttribute('style', 'border: none;')
+
+    document.querySelector('.bar').setAttribute('style', 'border: none;');
+    document.querySelector('#field').setAttribute('style', 'visibility: hidden;');
   }
   
 
@@ -47,11 +53,11 @@ export default class Search extends Component {
 
     return (
         <div id="wrap">
-            <form action="" autocomplete="on">
+            <form action="" autoComplete="on">
 
               <div className="bar">
                 <button className={isClickable} onClick={this.handleClick} type="submit">
-                  <i class="fas fa-search"></i>
+                  <i className="fas fa-search"></i>
                 </button>
                 <input id="field" onBlur={this.handleBlur} name="search" className={isCollapsed} type="text" placeholder="..."/>
               </div>
