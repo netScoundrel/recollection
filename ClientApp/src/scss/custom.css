@@ -1,0 +1,151 @@
+body {
+  height: 100%;
+  width: 100%;
+  margin-top: 3.9rem;
+}
+
+.navigation .navbar-nav a {
+  color: white !important;
+  -webkit-transition: 0.4s ease;
+  transition: 0.4s ease;
+  margin: 0 1.4px;
+}
+
+.navigation .bg-dark {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.219))) !important;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.219)) !important;
+}
+
+.navbar-brand {
+  font-family: 'Germania One', cursive;
+  font-size: 34px;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  letter-spacing: 2px !important;
+  margin-left: 5%;
+  color: #e36488 !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #db3b61 !important;
+}
+
+.nv a:hover {
+  background-color: #db3b61 !important;
+}
+
+.navigation {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.219))) !important;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.219)) !important;
+}
+
+.brand {
+  margin-left: 5%;
+  background: none;
+  border: none;
+}
+
+.search {
+  cursor: default;
+}
+
+#field {
+  visibility: hidden;
+  color: white;
+  background-color: #141414;
+  border-radius: 4px;
+  width: 0;
+  border: 0;
+  -webkit-transition: .25s ease;
+  transition: .25s ease;
+}
+
+#field::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.493);
+  letter-spacing: 2px;
+}
+
+#field:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.493);
+  letter-spacing: 2px;
+}
+
+#field::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.493);
+  letter-spacing: 2px;
+}
+
+#field::placeholder {
+  color: rgba(255, 255, 255, 0.493);
+  letter-spacing: 2px;
+}
+
+.hide {
+  width: 0 !important;
+}
+
+.show {
+  width: 174px !important;
+}
+
+.unclickable {
+  pointer-events: none;
+}
+
+.bar {
+  width: 100%;
+  background-color: #14141400;
+}
+
+button[type="submit"] {
+  border: none;
+  background-color: #ffffff00;
+}
+
+.fa-search {
+  color: white;
+}
+
+input:focus, select:focus, textarea:focus, button:focus {
+  outline: none;
+}
+
+.feed {
+  display: block;
+  position: relative;
+  left: 17.5%;
+  top: 0;
+  width: 65%;
+  height: 120rem;
+  background-color: #d56073;
+}
+
+.footer {
+  position: relative;
+  right: 0;
+  bottom: 2rem;
+  height: 60px;
+  width: 100%;
+  padding-top: 20px;
+  background-color: #214761;
+  color: #FFFFFF;
+  text-align: center;
+  margin-top: 4rem;
+}
+
+#progbar {
+  position: relative;
+  width: 60%;
+  left: 20%;
+}
+
+.progress-bar {
+  background-color: #19a879;
+}
+/*# sourceMappingURL=custom.css.map */

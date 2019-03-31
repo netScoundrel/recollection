@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './components_css/Search.css';
 
 export default class Search extends Component {
 
@@ -13,9 +12,12 @@ export default class Search extends Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  
+  handleChange(e){
+    e.preventDefault();
+  }
 
   handleClick(e){
     e.preventDefault();
@@ -27,12 +29,13 @@ export default class Search extends Component {
     });
 
     document.querySelector('#field').setAttribute('style', 'visibility: visible;');
-    document.querySelector('.bar').setAttribute('style', 'border: .3px white solid; background-color: #141414;');
+    document.querySelector('.bar').setAttribute('style', 'border: .9px white solid; background-color: #141414;');
 
     setTimeout(()=> {
       field.focus();
     }, 120)
   }
+
 
   handleBlur(e){
     e.preventDefault();
@@ -59,7 +62,7 @@ export default class Search extends Component {
                 <button className={isClickable} onClick={this.handleClick} type="submit">
                   <i className="fas fa-search"></i>
                 </button>
-                <input id="field" onBlur={this.handleBlur} name="search" className={isCollapsed} type="text" placeholder="..."/>
+                <input id="field" onChange={this.handleChange} onBlur={this.handleBlur} name="search" className={isCollapsed} type="text" placeholder="..."/>
               </div>
             </form>
         </div>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import {Navbar, Nav } from 'react-bootstrap';
 import Search from './Search';
-import './components_css/NavMenu.css';
 
 export class NavMenu extends Component {
   constructor(){

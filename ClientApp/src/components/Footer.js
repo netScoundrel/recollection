@@ -1,6 +1,5 @@
 import React from 'react';
 import {ProgressBar} from 'react-bootstrap';
-import './components_css/Footer.css';
 
 export default function Footer() {
     const percent = 2;
