@@ -56,7 +56,7 @@ export default class Search extends Component {
 
     return (
         <div id="wrap">
-            <form action="" autoComplete="on">
+            <form action="" method="post" autoComplete="on">
 
               <div className="bar">
                 <button className={isClickable} onClick={this.handleClick} type="submit">

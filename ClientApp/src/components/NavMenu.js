@@ -41,7 +41,9 @@ export class NavMenu extends Component {
                 <LinkContainer to="/stories">
                 <Nav.Link className="px-3" id="stories" >Stories</Nav.Link>
                 </LinkContainer>
-                <Nav.Link className="px-3 search"><Search /></Nav.Link>
+
+                <Search />
+                
                 <LinkContainer to="/account">
                   <Nav.Link className="px-3" id="account" >Account</Nav.Link>
                 </LinkContainer>

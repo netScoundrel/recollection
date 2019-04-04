@@ -4,6 +4,14 @@ body {
   margin-top: 3.9rem;
 }
 
+#root {
+  height: 100%;
+}
+
+section {
+  height: 100%;
+}
+
 .navigation .navbar-nav a {
   color: white !important;
   -webkit-transition: 0.4s ease;
@@ -116,6 +124,10 @@ input:focus, select:focus, textarea:focus, button:focus {
   outline: none;
 }
 
+.contents {
+  min-height: calc(100vh - 70px);
+}
+
 .feed {
   display: block;
   position: relative;
@@ -127,7 +139,6 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .footer {
-  position: relative;
   right: 0;
   bottom: 2rem;
   height: 60px;
