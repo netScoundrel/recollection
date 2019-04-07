@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import  {NavMenu}  from './NavMenu';
+import  NavMenu  from './NavMenu';
 import { Feed } from './Feed';
 import { FetchData } from './FetchData';
 import WrappedNormalLoginForm from './Counter';
@@ -14,21 +14,17 @@ export class Layout extends Component {
 
   render () {
     return (
-      <section >
-        <div classname='contents'>
+      <div className="content">
+        <div className="upper-content">
           <NavMenu />
-          <main>
           <Switch>
               <Redirect exact from="/" to="/feed" />
               <Route path="/feed" component={Feed}/>
               <Route path="/stories" component={WrappedNormalLoginForm}/>
               <Route path="/account" component={FetchData}/>
           </Switch>
-          </main>
         </div>
-        <Footer />
-      </section>
-      
-    );
-  }
+          <Footer />
+      </div>
+    )}
 }
