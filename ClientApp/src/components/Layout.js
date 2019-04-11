@@ -5,6 +5,7 @@ import { FetchData } from './FetchData';
 import WrappedNormalLoginForm from './Counter';
 import  Footer  from './Footer';
 import {Switch, Redirect, Route} from 'react-router-dom';
+import LeftMenu from './LeftMenu';
 
 
 
@@ -14,6 +15,9 @@ export class Layout extends Component {
 
   render () {
     return (
+      <React.Fragment>
+        <LeftMenu />
+      
       <div className="content">
         <div className="upper-content">
           <NavMenu />
@@ -24,7 +28,10 @@ export class Layout extends Component {
               <Route path="/account" component={FetchData}/>
           </Switch>
         </div>
-          <Footer />
       </div>
+      <footer>
+        <Footer />
+      </footer>
+      </React.Fragment>
     )}
 }

@@ -51,16 +51,43 @@
     min-height: calc(100vh - 70px);
   }
 
-.footer{
-  height: 50px;
-  width: 80%;
-  margin-left: 10%;
-  text-align: center;
+
+.content{
+  position: relative;
+  left: 264px;
+  margin-right: 264px + 80px;
 }
 
-.ant-menu .ant-menu-dark .ant-menu-root{
-  position: absolute !important;
-  left: 0;
-  top:  0;
-  width: 100% !important;
+.navigation{
+  position: absolute;
+  width: 256px;
+  z-index: 99;
+  top: 0;
+  bottom: 0;
+  margin-bottom: -50px;
 }
+
+#menu{
+  height: 100% !important;
+}
+
+footer{
+  height: 100%;
+  box-sizing: border-box;
+  padding-bottom: 60px;
+  background-color: #001529;
+  position: relative;
+  z-index: 100;
+}
+
+.footer {
+  height: 50px;
+  width: 70%;
+  margin-left: 15%;
+  text-align: center;
+
+  h3{
+    color: wheat;
+  }
+}
+

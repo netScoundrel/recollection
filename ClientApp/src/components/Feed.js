@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Card from './Post';
 
 export class Feed extends Component {
   static displayName = Feed.name;
@@ -7,7 +8,7 @@ export class Feed extends Component {
     return (
       <section >
         <div className="feed">
-          
+          {/* <Card /> */}
         </div>
       </section>
     );
