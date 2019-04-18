@@ -18,20 +18,20 @@ export class Layout extends Component {
       <React.Fragment>
         <LeftMenu />
       
-      <div className="content">
-        <div className="upper-content">
-          <NavMenu />
-          <Switch>
-              <Redirect exact from="/" to="/feed" />
-              <Route path="/feed" component={Feed}/>
-              <Route path="/stories" component={WrappedNormalLoginForm}/>
-              <Route path="/account" component={FetchData}/>
-          </Switch>
+        <div className="content">
+          <div className="upper-content">
+            <NavMenu />
+            <Switch>
+                <Redirect exact from="/" to="/feed" />
+                <Route path="/feed" component={Feed}/>
+                <Route path="/stories" component={WrappedNormalLoginForm}/>
+                <Route path="/account" component={FetchData}/>
+            </Switch>
+          </div>
         </div>
-      </div>
-      <footer>
-        <Footer />
-      </footer>
+        <footer>
+          <Footer />
+        </footer>
       </React.Fragment>
     )}
 }

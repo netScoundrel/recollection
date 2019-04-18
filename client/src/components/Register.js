@@ -1,18 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 
 import {
   Form, Icon, Input, Button, Checkbox,
 } from 'antd';
 
-class Counter extends React.Component {
+class Register extends React.Component {
   
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+
+        axios.post('/api/login', values)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
       }
     });
   }
@@ -26,27 +35,26 @@ class Counter extends React.Component {
       
       <Form onSubmit={this.handleSubmit} id="help" className="login-form">
         <Form.Item>
-          {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+          {getFieldDecorator('email', {
+            rules: [{type: 'email', message: 'The input is not valid E-mail'}, { required: true, message: 'Please input your email!' }],
           })(
-            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+            <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="E-mail:" />
           )}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
-            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password:" />
           )}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator('remember', {
+          {/* {getFieldDecorator('remember', {
             valuePropName: 'checked',
             initialValue: true,
           })(
             <Checkbox>Remember me</Checkbox>
-          )}
-          <a className="login-form-forgot" href="">Forgot password</a>
+          )} */}
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
@@ -58,7 +66,7 @@ class Counter extends React.Component {
   }
 }
 
-const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(Counter);
+const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(Register);
 
 export default WrappedNormalLoginForm;
 

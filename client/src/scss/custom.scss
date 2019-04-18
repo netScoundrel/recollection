@@ -33,7 +33,7 @@
     background-color: #14141400;
   }
   
-  button[type="submit"] {
+  #srchbutton [type="submit"] {
     border: none;
     background-color: #ffffff00;
   }
@@ -91,3 +91,14 @@ footer{
   }
 }
 
+#help {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -150px;
+  margin-left: -150px;
+}
+
+.login-form-button{
+  margin-right: 29px;
+}

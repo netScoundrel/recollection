@@ -59,7 +59,7 @@ export default class Search extends Component {
             <form action="" method="post" autoComplete="on">
 
               <div className="bar">
-                <button className={isClickable} onClick={this.handleClick} type="submit">
+                <button id="srchbutton" className={isClickable} onClick={this.handleClick} type="submit">
                   <i className="fas fa-search"></i>
                 </button>
                 <input id="field" onChange={this.handleChange} onBlur={this.handleBlur} name="search" className={isCollapsed} type="text" placeholder="..."/>
