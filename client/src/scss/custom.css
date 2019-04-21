@@ -118,4 +118,12 @@ footer {
 .login-form-button {
   margin-right: 29px;
 }
+
+#register {
+  position: relative;
+  max-width: 500px;
+  -webkit-transform: translate(0, 50%);
+          transform: translate(0, 50%);
+  left: 15%;
+}
 /*# sourceMappingURL=custom.css.map */

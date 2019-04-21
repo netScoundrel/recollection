@@ -1,14 +1,14 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-var UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     email: {
       type: String,
       unique: true,
       required: true,
       trim: true
     },
-    name: {
+    username: {
       type: String,
       required: true,
       trim: true
@@ -16,14 +16,6 @@ var UserSchema = new mongoose.Schema({
     password: {
       type: String,
       required: true
-    },
-    regDate: {
-        type: Date,
-        required: true
-    },
-    isAdmin: {
-        type: Boolean,
-        required: true
     }
 });
 
