@@ -22,7 +22,7 @@ app.use(cookieParser());
 
 // use sessions for tracking logins
 app.use(session({
-  secret: 'secret',
+  secret: 'mysecretsshhh',
   resave: true,
   saveUninitialized: false,
   store: new MongoStore({
@@ -50,9 +50,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
@@ -104,6 +101,7 @@ app.post('/api/register', (req, res, next) => {
 })
 
 
+
 // POST /login
 app.post('/api/login', (req, res, next) => {
   let status;
@@ -122,9 +120,24 @@ app.post('/api/login', (req, res, next) => {
       }
     });
   } else {
-    var err = new Error('Email and password are required.');
-    err.status = 401;
-    return next(err);
+
+    if (req.cookies['connect.sid']){
+      
+      const sessionCookie = req.cookies['connect.sid'].split('s:')[1];
+      //console.log(sessionCookie);
+      
+
+      
+      // console.log(req.session);
+      
+      
+    
+    } else {
+      var err = new Error('Email and password are required.');
+      err.status = 401;
+      return next(err);
+    }
+    
   }
 
   

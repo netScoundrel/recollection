@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import './Search.css';
 
-export default class Search extends Component {
+export class Search extends Component {
 
   constructor(){
     super();
@@ -29,7 +30,9 @@ export default class Search extends Component {
     });
 
     document.querySelector('#field').setAttribute('style', 'visibility: visible;');
-    document.querySelector('.bar').setAttribute('style', 'border: .9px white solid; background-color: #141414;');
+    document.querySelector('.bar').setAttribute('style', 'background-color: whitesmoke; color: green');
+    document.querySelector('#srchbutton i').setAttribute('style', 'color: green;');
+    document.querySelector('#srchbutton').setAttribute('style', 'background: none;');
 
     setTimeout(()=> {
       field.focus();
@@ -47,6 +50,8 @@ export default class Search extends Component {
 
     document.querySelector('.bar').setAttribute('style', 'border: none;');
     document.querySelector('#field').setAttribute('style', 'visibility: hidden;');
+    document.querySelector('#srchbutton i').setAttribute('style', 'color: whitesmoke;');
+    document.querySelector('#srchbutton').setAttribute('style', 'background: ;');
   }
   
 
@@ -62,7 +67,7 @@ export default class Search extends Component {
                 <button id="srchbutton" className={isClickable} onClick={this.handleClick} type="submit">
                   <i className="fas fa-search"></i>
                 </button>
-                <input id="field" onChange={this.handleChange} onBlur={this.handleBlur} name="search" className={isCollapsed} type="text" placeholder="..."/>
+                <input id="field" onChange={this.handleChange} onBlur={this.handleBlur} name="search" className={isCollapsed} type="text" placeholder="Поиск"/>
               </div>
             </form>
         </div>

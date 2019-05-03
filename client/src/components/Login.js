@@ -1,12 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { Link, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
+import './Login.css';
 
 
 import {
-  Form, Icon, Input, Button, Checkbox,
+  Form, Icon, Input, Button,
 } from 'antd';
 
 class Login extends React.Component {
@@ -21,6 +21,7 @@ class Login extends React.Component {
         axios.post('/api/login', values)
             .then((res) => {
                 console.log(res.data);
+                
                 if(res.data.isLoggedIn === true){
                   this.props.handleChange();
                 }
@@ -55,12 +56,6 @@ class Login extends React.Component {
           )}
         </Form.Item>
         <Form.Item>
-          {/* {getFieldDecorator('remember', {
-            valuePropName: 'checked',
-            initialValue: true,
-          })(
-            <Checkbox>Remember me</Checkbox>
-          )} */}
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>

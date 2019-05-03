@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
 const PostSchema = new mongoose.Schema({
     ownerId:{
@@ -24,7 +24,7 @@ const PostSchema = new mongoose.Schema({
     publishDate:{
         type: Date,
         unique: false,
-        required: true,
+        required: false, //needs to be changed later
     },
     likes:{
         type: Array,
@@ -34,4 +34,4 @@ const PostSchema = new mongoose.Schema({
 });
 
 const Post = mongoose.model('Post', PostSchema);
-module.exports = Post;
+export default Post;

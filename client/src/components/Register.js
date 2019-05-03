@@ -7,7 +7,6 @@ import {
     Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete,
   } from 'antd';
 
-import * as data from '../countries.min.json';
   
   const { Option } = Select;
   const AutoCompleteOption = AutoComplete.Option;
@@ -36,19 +35,6 @@ import * as data from '../countries.min.json';
     }],
   }];
 
-//   function getKeyByValue(object, value) {
-//     return Object.keys(object).find(key => object[key] === value);
-//   }
-
-//   const residences = [];
-//   data.countries.map(el => {
-//       residences.push({
-//           value: getKeyByValue(data.countries, el),
-//           label: getKeyByValue(data.countries, el),
-//           children: el,
-
-//       })
-//   });
   
   class RegistrationForm extends React.Component {
     state = {
@@ -212,23 +198,12 @@ import * as data from '../countries.min.json';
               <Input />
             )}
           </Form.Item>
-          {/* <Form.Item
-            label="Residence"
-          >
-            {getFieldDecorator('residence', {
-              initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-              rules: [{ type: 'array', required: true, message: 'Please select your habitual residence!' }],
-            })(
-              <Cascader options={residences} />
-            )}
-          </Form.Item> */}
-         
-          
+
           <Form.Item {...tailFormItemLayout}>
             {getFieldDecorator('agreement', {
               valuePropName: 'checked',
             })(
-              <Checkbox>I have read the <a href="">agreement</a></Checkbox>
+              <Checkbox>I have read the <strong>agreement</strong></Checkbox>
             )}
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
