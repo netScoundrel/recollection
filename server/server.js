@@ -29,11 +29,49 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
   secret: 'mysecretsshhh',
   resave: true,
-  saveUninitialized: true,
+  saveUninitialized: false,
   store: new MongoStore({
     mongooseConnection: db
   })
 }));
+
+
+// POST /register
+app.post('/api/register', (req, res, next) => {
+  console.log(req.body);
+  if(req.body.email &&
+    req.body.username &&
+    req.body.password &&
+    req.body.confirm) {
+      // confirm that user typed same password twice
+      if (req.body.password !== req.body.confirm) {
+        const err = new Error('Passwords do not match.');
+        err.status = 400;
+        return next(err);
+      }
+      // create object with form input
+      const userData = {
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password
+      };
+      // use schema's `create` method to insert document into Mongo
+      User.create(userData, (error, user) => {
+        if (error) {
+          return next(error);
+        } else {
+          req.session.userId = user._id;
+        }
+      });
+    } else {
+      const err = new Error('All fields required.');
+      err.status = 400;
+      return next(err);
+    }
+  res.send(
+    `I received your POST request. This is what you sent me: Email: ${req.body.email} Password: ${req.body.password} Username: ${req.body.username}`,
+  );
+})
 
 // POST /login
 app.post('/api/login', (req, res, next) => {
