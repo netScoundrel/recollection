@@ -36,9 +36,7 @@ app.use(session({
 }));
 
 
-// POST /register
 app.post('/api/register', (req, res, next) => {
-  console.log(req.body);
   if(req.body.email &&
     req.body.username &&
     req.body.password &&
@@ -70,8 +68,8 @@ app.post('/api/register', (req, res, next) => {
     }
   res.send(
     `I received your POST request. This is what you sent me: Email: ${req.body.email} Password: ${req.body.password} Username: ${req.body.username}`,
-  );
-})
+);
+});
 
 // POST /login
 app.post('/api/login', (req, res, next) => {
@@ -123,14 +121,7 @@ app.post('/api/fetch-posts', (req, res, next) => {
   posts.find().toArray((err, docs) => {
     res.send(docs);
   })
-})
-
-
-
-
-
-
-
+});
 
 
 // error handler
@@ -142,5 +133,7 @@ app.use((err, req, res, next) => {
       error: {}
     });
   });
-  
+
+
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Form, Col, Row, Button} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Post } from './Post';
 import axios from 'axios';
 
 import './Content.css';
@@ -9,15 +9,28 @@ export default class Content extends Component {
 
   state = {
     title: "",
-    text: ""
+    text: "",
+    posts: []
   }
 
   componentDidMount(){
+
     axios.post('/api/fetch-posts', null)
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => console.log(err))
+      .then((res) => {
+        this.setState({posts: res.data});
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+
+    const interval = setInterval(() => {
+      axios.post('/api/fetch-posts', null)
+      .then((res) => {
+        this.setState({posts: res.data});
+      })
+      .catch((err) => console.log(err));
+    }, 15000)
+
+
   }
 
 
@@ -49,6 +62,12 @@ export default class Content extends Component {
       <div className="feed-content">
         <div className="feed">
 
+          {
+            this.state.posts.map(post => 
+              <Post title={post.title} text={post.text} />
+              )
+          }
+          
         </div>
         <div className="right-sidebar">
         <Form onSubmit={this.handleSubmit}>

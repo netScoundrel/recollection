@@ -26,6 +26,7 @@ function Display(props) {
       <Switch>
         <Redirect from="/feed" to="/login" />
         <Route path="/login" render={(props => <WrappedNormalLoginForm handleChange={handleChange} />)} />
+        <Route path="/register" component={WrappedRegistrationForm} />
       </Switch>
     );
   }
@@ -34,6 +35,7 @@ function Display(props) {
     return(
       <Switch>
         <Route path="/login" render={(props => <WrappedNormalLoginForm handleChange={handleChange} />)} />
+        <Route path="/register" component={WrappedRegistrationForm}/>
       </Switch>
     );
   
