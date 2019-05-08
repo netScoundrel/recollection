@@ -1,7 +1,10 @@
 import { Card } from 'antd';
 
 
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+
+import './Post.css';
+import logo from '../img/users.svg';
 
 export class Post extends Component {
   render() {
@@ -10,15 +13,16 @@ export class Post extends Component {
       const text = this.props.text;
 
     return (
-      <div>
-        <Card
-            title={title}
-            extra={<a href="#">More</a>}
-            style={{ width: 700 }}
-            >
-            <p>Picture Placeholder</p>
-            <p>{text}</p>
-        </Card>
+      <div className="post-wrapper">
+        <div className="post-header">
+          <div className="post-user">
+            <img src={logo} height="35" alt="logo"/>
+          </div>
+          <h4>{title}</h4>
+        </div>
+        <div className="post-content">
+          <p>{text}</p>
+        </div>
       </div>
     )
   }

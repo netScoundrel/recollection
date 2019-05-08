@@ -1,0 +1,36 @@
+.post-wrapper{
+    height: 400px;
+    weight: 500px;
+    background: white;
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 2.2%;
+}
+
+.post-header{
+    display: flex;
+    border-bottom: 1px solid black;
+}
+
+.post-user{
+    width: 42.5px;
+    height: 42.5px;
+    background-color: grey;
+    border-radius: 50%;
+    margin-left: 20px;
+}
+
+.post-content{
+    display: flex;
+}
+
+.post-wrapper:first-child{
+    margin-top: 10px;
+}
+
+.post-wrapper:last-child{
+    margin-bottom: 0;
+}
