@@ -12,15 +12,29 @@
 
 .post-header{
     display: flex;
+    margin-top: 5px;
+    justify-self: center;
     border-bottom: 1px solid black;
 }
 
 .post-user{
-    width: 42.5px;
-    height: 42.5px;
-    background-color: grey;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
-    margin-left: 20px;
+    margin-left: 12px;
+    margin-right: 15px;
+}
+
+.post-user:hover{
+    cursor: pointer;
+}
+.post-user img:hover{
+    animation: grow 0.35s ease-in-out;
+    transform-origin: 50% 50%;
+}
+
+@keyframes grow{
+    50% {transform: scale(0.95) rotate(-3deg);}
 }
 
 .post-content{

@@ -14,6 +14,7 @@ export default class Content extends Component {
   }
 
   componentDidMount(){
+    
 
     axios.post('/api/fetch-posts', null)
       .then((res) => {
@@ -70,6 +71,7 @@ export default class Content extends Component {
           
         </div>
         <div className="right-sidebar">
+
         <Form onSubmit={this.handleSubmit}>
           <Form.Group as={Row} controlId="formHorizontalEmail">
             <Form.Label column sm={2}>

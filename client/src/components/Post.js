@@ -4,7 +4,7 @@ import { Card } from 'antd';
 import React, { Component } from 'react';
 
 import './Post.css';
-import logo from '../img/users.svg';
+import logo from '../img/sun.svg';
 
 export class Post extends Component {
   render() {
