@@ -24,7 +24,7 @@ const PostSchema = new mongoose.Schema({
     publishDate:{
         type: Date,
         unique: false,
-        required: false, //needs to be changed later
+        required: true,
     },
     likes:{
         type: Array,

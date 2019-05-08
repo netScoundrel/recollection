@@ -106,7 +106,7 @@ app.post('/api/login', (req, res, next) => {
   app.post('/api/post', (req, res, next) => {
     if(req.body.title && req.body.text){
       res.statusCode = 201;
-      Post.create({title: req.body.title, text: req.body.text});
+      Post.create({title: req.body.title, text: req.body.text, publishDate: new Date()});
     } else {
       throw new Error('Fields are necessary!');
     }
@@ -118,7 +118,7 @@ app.post('/api/login', (req, res, next) => {
 
 app.post('/api/fetch-posts', (req, res, next) => {
   const posts = db.collection('posts');
-  posts.find().toArray((err, docs) => {
+  posts.find().sort({publishDate: -1}).toArray((err, docs) => {
     res.send(docs);
   })
 });
