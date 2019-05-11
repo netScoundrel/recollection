@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import jwt from 'jsonwebtoken';
 
 import mongoose from 'mongoose';
 import session from 'express-session';
@@ -14,6 +15,8 @@ import Post from './models/post';
 const app = express();
 const port = process.env.PORT || 5000;
 
+const secret = 'bestsecret';
+
 // mongodb connection
 mongoose.connect("mongodb+srv://Allener:K7xAkLCP87DiUw8_@tripper-xnz5n.mongodb.net/test?retryWrites=true");
 
@@ -24,6 +27,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 // parse incoming requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 //// use sessions for tracking logins
 app.use(session({
@@ -85,10 +89,11 @@ app.post('/api/login', (req, res, next) => {
         req.session.userId = user._id;
         status = {isLoggedIn: true};
 
-        // const ses = db.collection('sessions');
-        // ses.find().toArray(function (err, docs) {
-        //   console.log(docs);
-        // });
+        //ISSUE TOKEN
+        const payload = { email };
+        const token = jwt.sign(payload, secret, { expiresIn: '1h'});
+
+        res.cookie('token', token, {httpOnly: true}).sendStatus(200);
 
         res.send(status);
         
