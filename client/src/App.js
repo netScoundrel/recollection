@@ -4,10 +4,6 @@ import 'antd/dist/antd.css';
 import WrappedNormalLoginForm from './components/Login';
 import {Switch, Redirect, Route} from 'react-router-dom';
 import WrappedRegistrationForm from './components/Register';
-import ProfilePage from './components/Profile';
-import ErrorPage from './components/Error';
-import AddPostPage from './components/AddNewPost';
-import Feed from './components/Feed';
 import './App.css';
 
 
@@ -21,9 +17,6 @@ function Display(props) {
       <Switch>
         <Redirect from="/login" to="/feed" />
         <Route path="/feed" component={Layout}/>
-        <Route path="/profile" component={ProfilePage}/>
-        <Route path="/error" component={ErrorPage}/>
-        <Route path="/addpost" component={AddPostPage}/>
       </Switch>
     );
   }
