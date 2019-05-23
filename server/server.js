@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import jwt from 'jsonwebtoken';
 
 import mongoose from 'mongoose';
 import session from 'express-session';
@@ -90,11 +89,6 @@ app.post('/api/login', (req, res, next) => {
         status = {isLoggedIn: true};
 
         //ISSUE TOKEN
-        const payload = { email };
-        const token = jwt.sign(payload, secret, { expiresIn: '1h'});
-
-        res.cookie('token', token, {httpOnly: true}).sendStatus(200);
-
         res.send(status);
         
       }
