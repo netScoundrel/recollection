@@ -5,6 +5,7 @@ import WrappedNormalLoginForm from './components/Login';
 import {Switch, Redirect, Route} from 'react-router-dom';
 import WrappedRegistrationForm from './components/Register';
 import './App.css';
+import axious from 'axios';
 
 
 function Display(props) {
@@ -52,7 +53,6 @@ export default class App extends Component {
   constructor(){
     super();
 
-
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -64,7 +64,23 @@ export default class App extends Component {
     this.setState({isLoggedIn: true});
   }
 
-  
+  componentDidMount(){
+    let token = window.localStorage.auth_token;
+    if(token){
+      axious.post('api/check-auth', {token})
+        .then((res) => {
+          if(res.data.success = true){
+            console.log(res.data);
+            this.setState({isLoggedIn: true});
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+        })
+    }
+    
+  }
+
   render () {
     return (
       <div className="App">

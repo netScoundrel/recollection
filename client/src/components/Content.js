@@ -15,23 +15,10 @@ export default class Content extends Component {
 
   componentDidMount(){
     
-
-    axios.post('/api/fetch-posts', null)
-      .then((res) => {
-        this.setState({posts: res.data});
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));
-
-    const interval = setInterval(() => {
-      axios.post('/api/fetch-posts', null)
-      .then((res) => {
-        this.setState({posts: res.data});
-      })
-      .catch((err) => console.log(err));
+    this.fetchData();
+    setInterval(() => {
+      this.fetchData();
     }, 15000)
-
-
   }
 
 
@@ -39,13 +26,11 @@ export default class Content extends Component {
     e.preventDefault();
     axios.post('/api/post', this.state)
       .then((res) => {
-        console.log(res.data);
+        this.fetchData();
       })
       .catch((err) => {
         console.log(err);
       })
-    
-  
   }
 
   handleTitleChange = (e) => {
@@ -56,6 +41,13 @@ export default class Content extends Component {
     this.setState({text: e.target.value});
   }
 
+  fetchData = () => {
+    axios.post('/api/fetch-posts', null)
+      .then((res) => {
+        this.setState({posts: res.data});
+      })
+      .catch((err) => console.log(err));
+  }
 
   render() {
 
@@ -65,7 +57,7 @@ export default class Content extends Component {
 
           {
             this.state.posts.map(post => 
-              <Post title={post.title} text={post.text} />
+              <Post key={post._id} title={post.title} text={post.text} />
               )
           }
           

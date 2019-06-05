@@ -1,22 +1,26 @@
-import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import jwt from 'jsonwebtoken';
+import express from 'express';
 
 import mongoose from 'mongoose';
-import session from 'express-session';
-import connect_mongo from 'connect-mongo';
-const MongoStore = connect_mongo(session);
+import jwt from 'jsonwebtoken';
+
+let config = require('./config');
+let middleware = require('./middleware');
 
 import User from './models/user';
 import Post from './models/post';
 
 
-
+// Init App
 const app = express();
 const port = process.env.PORT || 5000;
 
-const secret = 'bestsecret';
+// BodyParser Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 
 // mongodb connection
 mongoose.connect("mongodb+srv://Allener:K7xAkLCP87DiUw8_@tripper-xnz5n.mongodb.net/test?retryWrites=true");
@@ -24,21 +28,6 @@ mongoose.connect("mongodb+srv://Allener:K7xAkLCP87DiUw8_@tripper-xnz5n.mongodb.n
 const db = mongoose.connection;
 // mongo error
 db.on('error', console.error.bind(console, 'connection error:'));
-
-// parse incoming requests
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-
-//// use sessions for tracking logins
-app.use(session({
-  secret: 'mysecretsshhh',
-  resave: true,
-  saveUninitialized: false,
-  store: new MongoStore({
-    mongooseConnection: db
-  })
-}));
 
 
 app.post('/api/register', (req, res, next) => {
@@ -63,7 +52,7 @@ app.post('/api/register', (req, res, next) => {
         if (error) {
           return next(error);
         } else {
-          req.session.userId = user._id;
+          //req.session.userId = user._id;
         }
       });
     } else {
@@ -78,32 +67,35 @@ app.post('/api/register', (req, res, next) => {
 
 // POST /login
 app.post('/api/login', (req, res, next) => {
-  let status;
-  if (req.body.email && req.body.password) {
-    User.authenticate(req.body.email, req.body.password, (error, user) => {
+  let email = req.body.email;
+  let password = req.body.password;
+
+  if (email && password) {
+    User.authenticate(email, password, (error, user) => {
       if (error || !user) {
         const err = new Error('Wrong email or password.');
         err.status = 401;
         return next(err);
       }  else {
+          
+      
+          const users = db.collection('users');
 
-        req.session.userId = user._id;
-        status = {isLoggedIn: true};
-
-        //ISSUE TOKEN
-        const payload = { email };
-        const token = jwt.sign(payload, secret, { expiresIn: '1h'});
-
-        res.cookie('token', token, {httpOnly: true}).sendStatus(200);
-
-        res.send(status);
-        
+          users.find({email}).toArray((err, docs) => {
+            let owner = docs[0];
+            
+            let token = jwt.sign({username: owner.username}, config.secret, {expiresIn: '24h'});
+            res.json({
+              success: true,
+              message: 'successfully authenticated',
+              token
+            });
+          })          
       }
     });
 
   } else {
-
-      var err = new Error('Email and password are required.');
+      const err = new Error('Email and password are required.');
       err.status = 401;
       return next(err);
     }
@@ -121,25 +113,27 @@ app.post('/api/login', (req, res, next) => {
   })
 });
 
+// POST /check-auth : --If spa was refreshed then checks if token is still valid.
+app.post('/api/check-auth', (req, res, next) => {
+  let token = req.body.token;
+  jwt.verify(token, config.secret, (err, authDate) => {
+    if(err) {
+      res.sendStatus(403);
+    } else {
+      res.json({
+        success: true,
+        authDate
+      })
+    }
+  })
+});
 
+// POST /fetch-posts : --Gets all posts from the database on page load.
 app.post('/api/fetch-posts', (req, res, next) => {
   const posts = db.collection('posts');
   posts.find().sort({publishDate: -1}).toArray((err, docs) => {
     res.send(docs);
   })
 });
-
-
-// error handler
-// define as the last app.use callback
-app.use((err, req, res, next) => {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: {}
-    });
-  });
-
-
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

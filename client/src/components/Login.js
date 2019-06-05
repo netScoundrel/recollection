@@ -10,20 +10,23 @@ import {
 } from 'antd';
 
 class Login extends React.Component {
+  // Initializing important variables
+  constructor(domain){
+    super(domain);
+    //THIS LINE IS ONLY USED WHEN YOU'RE IN PRODUCTION MODE!
+    this.domain = domain || "http://localhost:3000"; // API server domain
+  }
   
   
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-
         axios.post('/api/login', values)
-            .then((res) => {
-                console.log(res.data);
-                
-                if(res.data.isLoggedIn === true){
+            .then((res) => {                
+                if(res.data.success === true){
                   this.props.handleChange();
+                  window.localStorage.setItem("auth_token", res.data.token);
                 }
             })
             .catch((err) => {
