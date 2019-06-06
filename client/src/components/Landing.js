@@ -3,7 +3,7 @@ import React from 'react';
 export function Landing() {
     return (
         <React.Fragment>
-            <p>hello</p>
+            <h1>Why are you gay?</h1>
         </React.Fragment>
     )
 }

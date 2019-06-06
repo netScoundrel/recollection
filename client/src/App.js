@@ -11,47 +11,7 @@ import AddPostPage from './components/AddNewPost';
 import Feed from './components/Feed';
 import './App.css';
 import axious from 'axios';
-
-
-// function Display(props) {
-//   const isLoggedIn = props.isLoggedIn;
-//   const handleChange = props.handleChange;
-
-//   if (isLoggedIn) {
-    
-//     return(
-//       <Switch>
-//         <Redirect from="/login" to="/feed" />
-//         <Route path="/feed" component={Layout}/>
-//         <Route path="/profile" component={ProfilePage}/>
-//         <Route path="/error" component={ErrorPage}/>
-//         <Route path="/addpost" component={AddPostPage}/>
-//       </Switch>
-//     );
-//   }
-
-//   else if (!isLoggedIn && !window.location.pathname.includes("/login") && !window.location.pathname.includes("/register")){
-//     return(
-//       <Switch>
-//         <Redirect from="/feed" to="/login" />
-//         <Route path="/login" render={(props => <WrappedNormalLoginForm handleChange={handleChange} />)} />
-//         <Route path="/register" component={WrappedRegistrationForm} />
-//       </Switch>
-//     );
-//   }
-
-
-//     return(
-//       <Switch>
-//         <Route path="/login" render={(props => <WrappedNormalLoginForm handleChange={handleChange} />)} />
-//         <Route path="/register" component={WrappedRegistrationForm}/>
-//       </Switch>
-//     );
-  
-
-
-// }
-
+import { Error } from './components/Error';
 
 
 export default class App extends Component {
@@ -92,10 +52,13 @@ export default class App extends Component {
   render () {
     return (
       <div className="App">
-        <Route exact path="/" component={Landing} />
-        <Route path="/register" component={WrappedRegistrationForm} />
-        <Route path="/login" component={WrappedNormalLoginForm} />
-        {/* <Display isLoggedIn={this.state.isLoggedIn} handleChange={this.handleChange} /> */}
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route path="/register" component={WrappedRegistrationForm} />
+          <Route path="/login" component={WrappedNormalLoginForm} />
+          <Route path="/feed" component={Layout} />
+          <Route path="*" component={Error} />
+        </Switch>
       </div>
     );
   }
