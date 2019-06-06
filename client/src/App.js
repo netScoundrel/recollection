@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Layout } from './components/Layout';
 import 'antd/dist/antd.css';
+import { Landing } from './components/Landing';
 import WrappedNormalLoginForm from './components/Login';
 import {Switch, Redirect, Route} from 'react-router-dom';
 import WrappedRegistrationForm from './components/Register';
@@ -12,44 +13,44 @@ import './App.css';
 import axious from 'axios';
 
 
-function Display(props) {
-  const isLoggedIn = props.isLoggedIn;
-  const handleChange = props.handleChange;
+// function Display(props) {
+//   const isLoggedIn = props.isLoggedIn;
+//   const handleChange = props.handleChange;
 
-  if (isLoggedIn) {
+//   if (isLoggedIn) {
     
-    return(
-      <Switch>
-        <Redirect from="/login" to="/feed" />
-        <Route path="/feed" component={Layout}/>
-        <Route path="/profile" component={ProfilePage}/>
-        <Route path="/error" component={ErrorPage}/>
-        <Route path="/addpost" component={AddPostPage}/>
-      </Switch>
-    );
-  }
+//     return(
+//       <Switch>
+//         <Redirect from="/login" to="/feed" />
+//         <Route path="/feed" component={Layout}/>
+//         <Route path="/profile" component={ProfilePage}/>
+//         <Route path="/error" component={ErrorPage}/>
+//         <Route path="/addpost" component={AddPostPage}/>
+//       </Switch>
+//     );
+//   }
 
-  else if (!isLoggedIn && !window.location.pathname.includes("/login") && !window.location.pathname.includes("/register")){
-    return(
-      <Switch>
-        <Redirect from="/feed" to="/login" />
-        <Route path="/login" render={(props => <WrappedNormalLoginForm handleChange={handleChange} />)} />
-        <Route path="/register" component={WrappedRegistrationForm} />
-      </Switch>
-    );
-  }
+//   else if (!isLoggedIn && !window.location.pathname.includes("/login") && !window.location.pathname.includes("/register")){
+//     return(
+//       <Switch>
+//         <Redirect from="/feed" to="/login" />
+//         <Route path="/login" render={(props => <WrappedNormalLoginForm handleChange={handleChange} />)} />
+//         <Route path="/register" component={WrappedRegistrationForm} />
+//       </Switch>
+//     );
+//   }
 
 
-    return(
-      <Switch>
-        <Route path="/login" render={(props => <WrappedNormalLoginForm handleChange={handleChange} />)} />
-        <Route path="/register" component={WrappedRegistrationForm}/>
-      </Switch>
-    );
+//     return(
+//       <Switch>
+//         <Route path="/login" render={(props => <WrappedNormalLoginForm handleChange={handleChange} />)} />
+//         <Route path="/register" component={WrappedRegistrationForm}/>
+//       </Switch>
+//     );
   
 
 
-}
+// }
 
 
 
@@ -91,7 +92,10 @@ export default class App extends Component {
   render () {
     return (
       <div className="App">
-        <Display isLoggedIn={this.state.isLoggedIn} handleChange={this.handleChange} />
+        <Route exact path="/" component={Landing} />
+        <Route path="/register" component={WrappedRegistrationForm} />
+        <Route path="/login" component={WrappedNormalLoginForm} />
+        {/* <Display isLoggedIn={this.state.isLoggedIn} handleChange={this.handleChange} /> */}
       </div>
     );
   }

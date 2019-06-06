@@ -5,8 +5,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
-let config = require('./config');
-let middleware = require('./middleware');
+const config = require('./config');
+const middleware = require('./middleware');
 
 import User from './models/user';
 import Post from './models/post';
