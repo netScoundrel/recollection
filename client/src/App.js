@@ -57,7 +57,8 @@ export default class App extends Component {
   }
 
   state = {
-    isLoggedIn: false
+    isLoggedIn: false,
+    name: ""
   }
 
   handleChange(){
@@ -70,8 +71,7 @@ export default class App extends Component {
       axious.post('api/check-auth', {token})
         .then((res) => {
           if(res.data.success = true){
-            console.log(res.data);
-            this.setState({isLoggedIn: true});
+            this.setState({isLoggedIn: true, name: res.data.authDate.username});
           }
         })
         .catch((err) => {
