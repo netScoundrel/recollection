@@ -24,7 +24,8 @@ const port = process.env.PORT || 5000;
 
 // BodyParser Middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
 app.use(cookieParser());
 
 
@@ -143,3 +144,4 @@ app.post('/api/fetch-posts', (req, res, next) => {
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+module.exports = app;
