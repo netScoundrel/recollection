@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Layout } from './components/Layout';
 import 'antd/dist/antd.css';
-import { Landing } from './components/Landing';
 import WrappedNormalLoginForm from './components/Login';
 import {Switch, Redirect, Route} from 'react-router-dom';
 import WrappedRegistrationForm from './components/Register';
@@ -53,9 +52,8 @@ export default class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Route exact path="/" component={Landing} />
+          <Route exact path="/" component={WrappedNormalLoginForm} />
           <Route path="/register" component={WrappedRegistrationForm} />
-          <Route path="/login" component={WrappedNormalLoginForm} />
           <Route path="/feed" component={Layout} />
           <Route path="*" component={Error} />
         </Switch>
