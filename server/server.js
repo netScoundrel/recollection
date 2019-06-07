@@ -115,7 +115,22 @@ app.post('/api/post', (req, res, next) => {
     const users = db.collection('users');
     users.find({username}).toArray((err, docs) => {
       let owner = docs[0];
-      Post.create({title: req.body.title, text: req.body.text, publishDate: new Date(), ownerId: owner.userId});
+
+      const posts = db.collection('posts');
+      posts.find().sort({postId: -1}).limit(1).toArray((err, docs) => {
+        let nextPostId;
+        let lastPostId;
+        try {
+          lastPostId = docs[0].postId;
+          nextPostId = (parseInt(lastPostId) + 1).toString();
+        }
+        catch{
+          nextPostId = '0';
+        }
+        finally{
+          Post.create({title: req.body.title, text: req.body.text, publishDate: new Date(), ownerId: owner.userId, postId: nextPostId});
+        }
+      })
     })
   } else {
     throw new Error('Fields are necessary!');

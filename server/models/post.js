@@ -1,10 +1,15 @@
 import mongoose from 'mongoose';
 
 const PostSchema = new mongoose.Schema({
+    postId: {
+        type: String,
+        unique: false,
+        required: false
+    },
     ownerId:{
         type: String,
         unique: false,
-        required: true, //needs to be changed later
+        required: true,
     },
     title:{
         type: String,
