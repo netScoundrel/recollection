@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Auth from '../Auth';
 import './Login.css';
 
-
 import {
   Form, Icon, Input, Button,
 } from 'antd';
@@ -15,8 +14,17 @@ class Login extends React.Component {
     super(domain);
     //THIS LINE IS ONLY USED WHEN YOU'RE IN PRODUCTION MODE!
     this.domain = domain || "http://localhost:3000"; // API server domain
+
+    this.handleSwap = this.handleSwap.bind(this);
   }
-  
+
+  state = {
+    isRegistering: false
+  }
+
+  handleSwap(){
+    this.setState({isRegistering: !this.state.isRegistering})
+  }
   
   handleSubmit = (e) => {
     e.preventDefault();
@@ -37,9 +45,7 @@ class Login extends React.Component {
   }
 
   render() {
-
     const { getFieldDecorator } = this.props.form;
-
 
     return (
       <div className="body-wrap">
@@ -54,6 +60,12 @@ class Login extends React.Component {
           nibh vestibulum gravida. {process.env.NODE_ENV}</p>
 
         </div>
+        {this.state.isRegistering ?(
+            <h1>true</h1>
+        ) : (
+        <h1>false</h1>
+        )
+        }
         <Form onSubmit={this.handleSubmit} id="help" className="login-form" method="POST" action="/api/login">
           <h5>Start using Recollection now!</h5>
           <Form.Item>
@@ -74,7 +86,7 @@ class Login extends React.Component {
             <Button type="primary" htmlType="submit" className="login-form-button">
               Log in
             </Button>
-            Or <Link to="/register">register now!</Link>
+            Or <Link onClick={this.handleSwap}>register now!</Link>
           </Form.Item>
         </Form>
       </div>
