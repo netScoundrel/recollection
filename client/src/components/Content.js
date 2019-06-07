@@ -10,6 +10,7 @@ export default class Content extends Component {
   state = {
     title: "",
     text: "",
+    name: this.props.username,
     posts: []
   }
 
@@ -27,6 +28,7 @@ export default class Content extends Component {
     axios.post('/api/post', this.state)
       .then((res) => {
         this.fetchData();
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);

@@ -103,17 +103,27 @@ app.post('/api/login', (req, res, next) => {
       err.status = 401;
       return next(err);
     }
+});
 
 
-  app.post('/api/post', (req, res, next) => {
-    if(req.body.title && req.body.text){
-      res.statusCode = 201;
-      Post.create({title: req.body.title, text: req.body.text, publishDate: new Date()});
-    } else {
-      throw new Error('Fields are necessary!');
-    }
+//POST /post : -- creates the post
+app.post('/api/post', (req, res, next) => {
+  if(req.body.title && req.body.text && req.body.name){
+    const username = req.body.name;
+    res.statusCode = 201;
+
+    const users = db.collection('users');
+    users.find({username}).toArray((err, docs) => {
+      let owner = docs[0];
+      Post.create({title: req.body.title, text: req.body.text, publishDate: new Date(), ownerId: owner.userId});
+    })
+  } else {
+    throw new Error('Fields are necessary!');
+  }
+
+  
+  res.json({
     
-    res.send(req.body);
   })
 });
 

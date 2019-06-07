@@ -10,7 +10,7 @@ export class Layout extends Component {
     return (
       <React.Fragment>
         <Header />
-        <Content />
+        <Content username={this.props.username} />
       </React.Fragment>
     )}
 }

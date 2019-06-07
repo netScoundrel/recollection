@@ -57,7 +57,7 @@ export default class App extends Component {
         <Switch>
           <Route exact path="/" render={() => <WrappedNormalLoginForm handleChange={this.handleChange} />} />
           <Route path="/register" component={WrappedRegistrationForm} />
-          <ProtectedRoute exact path="/feed" component={Layout} />
+          <ProtectedRoute username={this.state.name} exact path="/feed" component={Layout} />
           <Route path="*" component={Error} />
         </Switch>
       </div>

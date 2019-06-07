@@ -4,7 +4,7 @@ const PostSchema = new mongoose.Schema({
     ownerId:{
         type: String,
         unique: false,
-        required: false, //needs to be changed later
+        required: true, //needs to be changed later
     },
     title:{
         type: String,
