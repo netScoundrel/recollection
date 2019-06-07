@@ -30,7 +30,7 @@ export default class App extends Component {
   }
 
   handleChange(){
-    Auth.login();
+    Auth.login(() => {});
     this.setState({auth: Auth.authenticated});
   }
 
@@ -40,7 +40,7 @@ export default class App extends Component {
       axious.post('api/check-auth', {token})
         .then((res) => {
           if(res.data.success = true){
-            Auth.login();
+            Auth.login(() => {});
             this.setState({auth: Auth.authenticated, name: res.data.authDate.username});
           }
         })

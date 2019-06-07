@@ -5,8 +5,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
-const validateToken = require('./validateToken');
-const middleware = require('./middleware');
 
 import User from './models/user';
 import Post from './models/post';
@@ -24,13 +22,12 @@ const port = process.env.PORT || 5000;
 
 // BodyParser Middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.text());
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser());
 
 
 // mongodb connection
-mongoose.connect(config.DBHost, options);
+mongoose.connect("mongodb+srv://Allener:K7xAkLCP87DiUw8_@tripper-xnz5n.mongodb.net/test?retryWrites=true");
 
 const db = mongoose.connection;
 // mongo error
@@ -91,7 +88,7 @@ app.post('/api/login', (req, res, next) => {
           users.find({email}).toArray((err, docs) => {
             let owner = docs[0];
             
-            let token = jwt.sign({username: owner.username}, validateToken.secret, {expiresIn: '24h'});
+            let token = jwt.sign({username: owner.username}, 'secret', {expiresIn: '24h'});
             res.json({
               success: true,
               message: 'successfully authenticated',
@@ -123,7 +120,7 @@ app.post('/api/login', (req, res, next) => {
 // POST /check-auth : --If spa was refreshed then checks if token is still valid.
 app.post('/api/check-auth', (req, res, next) => {
   let token = req.body.token;
-  jwt.verify(token, validateToken.secret, (err, authDate) => {
+  jwt.verify(token, 'secret', (err, authDate) => {
     if(err) {
       res.sendStatus(403);
     } else {
@@ -143,5 +140,5 @@ app.post('/api/fetch-posts', (req, res, next) => {
   })
 });
 
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
-module.exports = app;
