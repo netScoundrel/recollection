@@ -1,7 +1,8 @@
-body{
-    background-size: 100vh;
+.body-wrap{
+    width: 100vw;
+    height: 100vh;
     background-image: url("../img/2-1.jpg");
-    background-size: cover;
+    background-color: darkgrey;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -11,10 +12,24 @@ body{
 }
 
 #help {
+    background-color: aliceblue;
+    padding: 10px;
+    border-radius: 10px;
     margin: 0;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 40%;
+    left: 72%;
     transform: translate(-50%, -50%);
-    
   }
+
+.intro{
+    background-color: aliceblue;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0;
+    position: absolute;
+    top: 45%;
+    left: 22%;
+    width: 30%;
+    transform: translate(-50%, -50%);
+}
