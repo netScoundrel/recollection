@@ -11,7 +11,8 @@ import Feed from './components/Feed';
 import './App.css';
 import axious from 'axios';
 import { Error } from './components/Error';
-
+import {ProtectedRoute} from './components/Protected.Route';
+import Auth from './Auth';
 
 export default class App extends Component {
 
@@ -24,12 +25,13 @@ export default class App extends Component {
   }
 
   state = {
-    isLoggedIn: false,
+    auth: Auth.authenticated,
     name: ""
   }
 
   handleChange(){
-    this.setState({isLoggedIn: true});
+    Auth.login();
+    this.setState({auth: Auth.authenticated});
   }
 
   componentDidMount(){
@@ -38,7 +40,8 @@ export default class App extends Component {
       axious.post('api/check-auth', {token})
         .then((res) => {
           if(res.data.success = true){
-            this.setState({isLoggedIn: true, name: res.data.authDate.username});
+            Auth.login();
+            this.setState({auth: Auth.authenticated, name: res.data.authDate.username});
           }
         })
         .catch((err) => {
@@ -52,9 +55,9 @@ export default class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Route exact path="/" component={WrappedNormalLoginForm} />
+          <Route exact path="/" render={() => <WrappedNormalLoginForm handleChange={this.handleChange} />} />
           <Route path="/register" component={WrappedRegistrationForm} />
-          <Route path="/feed" component={Layout} />
+          <ProtectedRoute exact path="/feed" component={Layout} />
           <Route path="*" component={Error} />
         </Switch>
       </div>
