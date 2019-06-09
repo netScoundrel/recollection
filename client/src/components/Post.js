@@ -1,4 +1,5 @@
 import { Card } from 'antd';
+import { ThreeDots } from './ThreeDots';
 
 
 import React, { Component } from 'react';
@@ -19,6 +20,7 @@ export class Post extends Component {
             <img src={logo} height="35" alt="logo"/>
           </div>
           <h4>{title}</h4>
+          <ThreeDots />
         </div>
         <div className="post-content">
           <p>{text}</p>

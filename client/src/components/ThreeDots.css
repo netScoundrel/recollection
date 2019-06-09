@@ -1,0 +1,14 @@
+.dropdown-toggle.btn.btn-primary::before {
+    content: none;
+ }
+
+ .btn-primary{
+    background-color: none !important;
+    border-color: none !important;
+ }
+
+ div.dropleft{
+    margin-left: auto;
+    position: relative;
+    z-index: 99;
+ }
