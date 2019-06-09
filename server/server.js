@@ -45,18 +45,29 @@ app.post('/api/register', (req, res, next) => {
         err.status = 400;
         return next(err);
       }
-      // create object with form input
-      const userData = {
-        email: req.body.email,
-        username: req.body.username,
-        password: req.body.password
-      };
-      // use schema's `create` method to insert document into Mongo
-      User.create(userData, (error, user) => {
-        if (error) {
-          return next(error);
-        } else {
-          //req.session.userId = user._id;
+      const users = db.collection('users');
+      users.find().sort({userId: -1}).limit(1).toArray((err, docs) => {
+        let nextId;
+        let lastId;
+        try {
+          lastId = docs[0].userId;
+          nextId = (parseInt(lastId) + 1).toString();
+        }
+        catch{
+          nextId = "0";
+        }
+
+        finally{
+          // create object with form input
+          const userData = {
+            userId: nextId,
+            isAdmin: false,
+            email: req.body.email,
+            username: req.body.username,
+            password: req.body.password,
+          };
+          // use schema's `create` method to insert document into Mongo
+          User.create(userData);
         }
       });
     } else {
@@ -82,7 +93,6 @@ app.post('/api/login', (req, res, next) => {
         return next(err);
       }  else {
           
-      
           const users = db.collection('users');
 
           users.find({email}).toArray((err, docs) => {
