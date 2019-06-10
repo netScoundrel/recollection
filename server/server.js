@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser());
 
 // mongodb connection
-mongoose.connect("mongodb+srv://Allener:K7xAkLCP87DiUw8_@tripper-xnz5n.mongodb.net/test?retryWrites=true");
+mongoose.connect("mongodb+srv://Allener:K7xAkLCP87DiUw8_@tripper-xnz5n.mongodb.net/recollection?retryWrites=true");
 
 const db = mongoose.connection;
 // mongo error
