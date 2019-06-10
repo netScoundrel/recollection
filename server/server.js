@@ -175,5 +175,11 @@ app.post('/api/fetch-posts', (req, res, next) => {
   })
 });
 
+app.post('/api/delete-post', (req, res, next) =>{
+  const posts = db.collection('posts');
+  console.log(req.body);
+  posts.deleteOne({postId: req.body.id.toString()})
+  res.send("udalili");
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

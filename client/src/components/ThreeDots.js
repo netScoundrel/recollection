@@ -3,6 +3,7 @@ import {Dropdown, DropdownButton} from 'react-bootstrap';
 import './ThreeDots.css';
 
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export class ThreeDots extends Component {
     constructor(){
@@ -12,7 +13,15 @@ export class ThreeDots extends Component {
     }
 
     handleClickDelete = () => {
-            
+            axios.post('/api/delete-post', this.props)
+                .then((res) => {
+                    
+                })
+                .catch((err) => console.log(err.message))
+
+            axios.post('/api/fetch-posts', null)
+                .then((res) => {})
+                .catch((err) => console.log(err.message))
     }
 
 
