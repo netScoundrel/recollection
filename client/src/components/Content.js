@@ -59,7 +59,7 @@ export default class Content extends Component {
 
           {
             this.state.posts.map(post => 
-              <Post key={post.postId} id={post.postId} title={post.title} text={post.text} fetchData={this.fetchData} />
+              <Post key={post.postId} id={post.postId} title={post.title} text={post.text} fetchData={this.fetchData} username={this.props.username} />
               )
           }
           

@@ -2,7 +2,7 @@ import { Card } from 'antd';
 import { ThreeDots } from './ThreeDots';
 
 
-import React, { Component } from 'react';
+import React, { Component, useImperativeHandle } from 'react';
 
 import './Post.css';
 import logo from '../img/sun.svg';
@@ -20,7 +20,7 @@ export class Post extends Component {
             <img src={logo} height="35" alt="logo"/>
           </div>
           <h4>{title}</h4>
-          <ThreeDots id={this.props.id} fetchData={this.props.fetchData} />
+          <ThreeDots id={this.props.id} username={this.props.username} fetchData={this.props.fetchData} />
         </div>
         <div className="post-content">
           <p>{text}</p>

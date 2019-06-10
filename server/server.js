@@ -174,11 +174,28 @@ app.post('/api/fetch-posts', (req, res, next) => {
   })
 });
 
+
 app.post('/api/delete-post', (req, res, next) =>{
   const posts = db.collection('posts');
-  console.log(req.body);
-  posts.deleteOne({postId: req.body.id.toString()})
-  res.send("udalili");
+  const users = db.collection('users');
+
+  posts.find({postId: req.body.id.toString()}).toArray((err, doc) => {
+    const post = doc[0];
+    users.find({username: req.body.username }).toArray((err, doc) => {
+      const user = doc[0];
+
+      //Checks if user is the owner of the post
+      if (user.userId === post.ownerId ||user.isAdmin){
+        posts.deleteOne({postId: req.body.id.toString()});
+        res.send("Deleted");
+      }
+      else{
+        res.send("Rejected");
+      }
+    })
+  })
+  
+  
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
