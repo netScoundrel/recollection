@@ -9,11 +9,11 @@ import jwt from 'jsonwebtoken';
 import User from './models/user';
 import Post from './models/post';
 
-let config = require('config');
+/*let config = require('config');
 let options = { 
   server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
   replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } 
-};
+};*/
 
 
 // Init App
@@ -24,7 +24,6 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser());
-
 
 // mongodb connection
 mongoose.connect("mongodb+srv://Allener:K7xAkLCP87DiUw8_@tripper-xnz5n.mongodb.net/test?retryWrites=true");
@@ -183,3 +182,5 @@ app.post('/api/delete-post', (req, res, next) =>{
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+module.exports = app;
