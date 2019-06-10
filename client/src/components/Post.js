@@ -20,7 +20,7 @@ export class Post extends Component {
             <img src={logo} height="35" alt="logo"/>
           </div>
           <h4>{title}</h4>
-          <ThreeDots id={this.props.id} />
+          <ThreeDots id={this.props.id} fetchData={this.props.fetchData} />
         </div>
         <div className="post-content">
           <p>{text}</p>

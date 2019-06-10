@@ -19,9 +19,7 @@ export class ThreeDots extends Component {
                 })
                 .catch((err) => console.log(err.message))
 
-            axios.post('/api/fetch-posts', null)
-                .then((res) => {})
-                .catch((err) => console.log(err.message))
+            this.props.fetchData();
     }
 
 
