@@ -18,6 +18,7 @@ export default function Header() {
             <Nav.Link className="menu-item" href="#home">Feed</Nav.Link>
             <Nav.Link className="menu-item" href="#features">Public stories</Nav.Link>
             <Nav.Link className="menu-item" href="#pricing">Profile</Nav.Link>
+            <Nav.Link className="menu-item" href="#games">Games</Nav.Link>
           </Nav>
         </div>
         <div className="right-menu">
