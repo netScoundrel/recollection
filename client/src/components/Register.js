@@ -103,7 +103,7 @@ import {
 
       const redirectToLogIn = this.state.redirectToLogIn;
       if ( redirectToLogIn === true) {
-        return <Redirect to="/login" />
+        return <Redirect to="/" />
       }
   
       const formItemLayout = {

@@ -158,9 +158,16 @@ app.post('/api/check-auth', (req, res, next) => {
     if(err) {
       res.sendStatus(403);
     } else {
-      res.json({
-        success: true,
-        authDate
+
+      const users = db.collection('users');
+      users.find({username: authDate.username}).toArray((err, doc) => {
+        const user = doc[0];
+
+        res.json({
+          success: true,
+          userId: user.userId,
+          authDate
+        })
       })
     }
   })
@@ -174,7 +181,7 @@ app.post('/api/fetch-posts', (req, res, next) => {
   })
 });
 
-
+//POST /delete-post : --Deletes post from database
 app.post('/api/delete-post', (req, res, next) =>{
   const posts = db.collection('posts');
   const users = db.collection('users');
@@ -197,6 +204,31 @@ app.post('/api/delete-post', (req, res, next) =>{
   
   
 });
+
+//POST /edit-post : --Edits chosen post in database
+app.post('/api/edit-post', (req, res, next) =>{
+  const posts = db.collection('posts');
+  const users = db.collection('users');
+
+  posts.find({postId: req.body.id.toString()}).toArray((err, doc) => {
+    const post = doc[0];
+    users.find({username: req.body.username }).toArray((err, doc) => {
+      const user = doc[0];
+
+      //Checks if user is the owner of the post
+      if (user.userId === post.ownerId ||user.isAdmin){
+        posts.findOneAndUpdate(
+          {postId: req.body.id.toString()},
+          {$inc: req.body.newData});
+        res.send("Deleted");
+      }
+      else{
+        res.send("Rejected");
+      }
+    })
+  })
+});
+
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 

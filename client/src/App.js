@@ -10,7 +10,7 @@ import ErrorPage from './components/Error';
 import AddPostPage from './components/AddNewPost';
 import Feed from './components/Feed';
 import './App.css';
-import axious from 'axios';
+import axios from 'axios';
 import { Error } from './components/Error';
 import {ProtectedRoute} from './components/Protected.Route';
 import Auth from './Auth';
@@ -27,7 +27,8 @@ export default class App extends Component {
 
   state = {
     auth: Auth.authenticated,
-    name: ""
+    name: "",
+    userId: ""
   }
 
   handleChange(){
@@ -38,11 +39,11 @@ export default class App extends Component {
   componentDidMount(){
     let token = window.localStorage.auth_token;
     if(token){
-      axious.post('api/check-auth', {token})
+      axios.post('api/check-auth', {token})
         .then((res) => {
           if(res.data.success = true){
             Auth.login(() => {});
-            this.setState({auth: Auth.authenticated, name: res.data.authDate.username});
+            this.setState({auth: Auth.authenticated, name: res.data.authDate.username, userId: res.data.userId});
           }
         })
         .catch((err) => {
@@ -58,7 +59,7 @@ export default class App extends Component {
         <Switch>
           <Route exact path="/" render={() => <WrappedNormalLoginForm handleChange={this.handleChange} />} />
           <Route path="/register" component={WrappedRegistrationForm} />
-          <ProtectedRoute username={this.state.name} exact path="/feed" component={Layout} />
+          <ProtectedRoute username={this.state.name} userId={this.state.userId} exact path="/feed" component={Layout} />
           <ProtectedRoute username={this.state.name} exact path="/games" component={Games} />
           <Route path="*" component={Error} />
         </Switch>

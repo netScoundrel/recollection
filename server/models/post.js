@@ -21,11 +21,6 @@ const PostSchema = new mongoose.Schema({
         unique: false,
         required: true,
     },
-    accesibility:{
-        type: String,
-        unique: false,
-        required: false, //needs to be changed later
-    },
     publishDate:{
         type: Date,
         unique: false,

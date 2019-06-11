@@ -12,6 +12,15 @@ export class ThreeDots extends Component {
         this.handleClickDelete = this.handleClickDelete.bind(this);
     }
 
+    handleClickEdit = () =>{
+        axios.post('/api/edit-post', this.props)
+            .then((res) => {
+
+            })
+            .catch((err) => console.log(err.message))
+        this.props.fetchData();
+    }
+
     handleClickDelete = () => {
             axios.post('/api/delete-post', this.props)
                 .then((res) => {
@@ -24,11 +33,21 @@ export class ThreeDots extends Component {
 
 
     render() {
-
+        const hasRightToEdit = this.props.userId === this.props.ownerId ? true : false;
+        console.log(this.props.userId)
+        console.log(this.props.ownerId)
+        console.log(hasRightToEdit)
         return (
             <DropdownButton drop="left" title="...">
-                <Dropdown.Item eventKey="1"> <Icon type="edit" />  Edit</Dropdown.Item>
-                <Dropdown.Item onClick={this.handleClickDelete} eventKey="2"> <Icon type="delete" />  Delete</Dropdown.Item>
+                {hasRightToEdit ?(
+                    <React.Fragment>
+                        <Dropdown.Item onclick={this.handleClickEdit} eventKey="1"> <Icon type="edit" />  Edit</Dropdown.Item>
+                        <Dropdown.Item onClick={this.handleClickDelete} eventKey="2"> <Icon type="delete" />  Delete</Dropdown.Item>
+                    </React.Fragment>
+                ) : (
+                    <Dropdown.Item eventKey="3"> <Icon type="warning" />  Report</Dropdown.Item>
+                )
+                }
             </DropdownButton>
         )
     }
