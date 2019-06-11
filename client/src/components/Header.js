@@ -15,10 +15,9 @@ export default function Header() {
         </div>
         <div className="menu">
           <Nav className="mr-auto">
-            <Nav.Link className="menu-item" href="#home">Feed</Nav.Link>
-            <Nav.Link className="menu-item" href="#features">Public stories</Nav.Link>
-            <Nav.Link className="menu-item" href="#pricing">Profile</Nav.Link>
-            <Nav.Link className="menu-item" href="#games">Games</Nav.Link>
+            <Nav.Link className="menu-item" href="/feed">Feed</Nav.Link>
+            <Nav.Link className="menu-item" href="/profile">Profile</Nav.Link>
+            <Nav.Link className="menu-item" href="/games">Games</Nav.Link>
           </Nav>
         </div>
         <div className="right-menu">
