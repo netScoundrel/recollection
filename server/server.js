@@ -166,6 +166,7 @@ app.post('/api/check-auth', (req, res, next) => {
         res.json({
           success: true,
           userId: user.userId,
+          isAdmin: user.isAdmin,
           authDate
         })
       })
@@ -220,7 +221,7 @@ app.post('/api/edit-post', (req, res, next) =>{
         posts.findOneAndUpdate(
           {postId: req.body.id.toString()},
           {$inc: req.body.newData});
-        res.send("Deleted");
+        res.send("Edited");
       }
       else{
         res.send("Rejected");

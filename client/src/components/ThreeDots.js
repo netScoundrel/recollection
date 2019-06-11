@@ -34,9 +34,6 @@ export class ThreeDots extends Component {
 
     render() {
         const hasRightToEdit = this.props.userId === this.props.ownerId ? true : false;
-        console.log(this.props.userId)
-        console.log(this.props.ownerId)
-        console.log(hasRightToEdit)
         return (
             <DropdownButton drop="left" title="...">
                 {hasRightToEdit ?(
