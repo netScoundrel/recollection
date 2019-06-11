@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import axios from 'axios';
-import Content from './Content';
-
-import './Content.css';
+import GameContent from './GameContent';
 
 export class Games extends Component {
   static displayName = Games.name;
