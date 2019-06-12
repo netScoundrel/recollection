@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layout } from './components/Layout';
-import { Games } from './components/Games';
+import { GamePageLayout } from './components/GamePageLayout';
 import 'antd/dist/antd.css';
 import WrappedNormalLoginForm from './components/Login';
 import {Switch, Redirect, Route} from 'react-router-dom';
@@ -56,7 +56,7 @@ export default class App extends Component {
           <Route exact path="/" render={() => <WrappedNormalLoginForm handleChange={this.handleChange} />} />
           <Route path="/register" component={WrappedRegistrationForm} />
           <ProtectedRoute username={this.state.name} userId={this.state.userId} exact path="/feed" component={Layout} />
-          <ProtectedRoute username={this.state.name} exact path="/games" component={Games} />
+          <ProtectedRoute username={this.state.name} exact path="/games" component={GamePageLayout} />
           <Route path="*" component={Error} />
         </Switch>
       </div>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+/*import React, { Component } from 'react';
 import {Form, Col, Row, Button} from 'react-bootstrap';
 import { Post } from './Post';
 import axios from 'axios';
@@ -59,3 +59,4 @@ export default class Content extends Component {
   }
 }
 
+*/

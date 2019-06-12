@@ -64,8 +64,8 @@ export default class Content extends Component {
           }
           
         </div>
-        <div className="right-sidebar">
 
+        <div className="right-sidebar">
         <Form onSubmit={this.handleSubmit}>
           <Form.Group as={Row} controlId="formHorizontalEmail">
             <Form.Label column sm={2}>
