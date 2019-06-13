@@ -9,13 +9,6 @@ import jwt from 'jsonwebtoken';
 import User from './models/user';
 import Post from './models/post';
 
-/*let config = require('config');
-let options = { 
-  server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
-  replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } 
-};*/
-
-
 // Init App
 const app = express();
 const port = process.env.PORT || 5000;
