@@ -6,7 +6,7 @@ import logo from '../img/instagram2.svg';
 import { Search } from './Search';
 import { User } from './User';
 
-export default function Header() {
+export default function Header(props) {
   return (
     <header className="App-header">
       <nav className="nav">
@@ -23,7 +23,7 @@ export default function Header() {
         </div>
         <div className="right-menu">
             <Search/>
-            <User />
+            <User handleLogout={props.handleLogout} />
         </div>
       </nav>
     </header>

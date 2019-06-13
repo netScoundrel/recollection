@@ -19,6 +19,7 @@ export default class App extends Component {
     super();
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   state = {
@@ -30,6 +31,12 @@ export default class App extends Component {
   handleChange(){
     Auth.login(() => {});
     this.setState({auth: Auth.authenticated});
+  }
+
+  handleLogout = () => {
+    Auth.logout(() => {});
+    this.setState({auth: Auth.authenticated, name: "", userId: ""});
+    window.localStorage.clear();
   }
 
   componentDidMount(){
@@ -57,7 +64,7 @@ export default class App extends Component {
           ? (
             <Switch>
               <Redirect exact from='/' to='/feed' />
-              <Route exact path="/feed" render={(routeProps) => <Layout {...routeProps} {...this.props} username={this.state.name} userId={this.state.userId} />}/>
+              <Route exact path="/feed" render={(routeProps) => <Layout {...routeProps} {...this.props} username={this.state.name} userId={this.state.userId} handleLogout={this.handleLogout} />}/>
               <Route username={this.state.name} exact path="/games" component={GamePageLayout} />
               <Route path="*" component={Error} />
             </Switch>

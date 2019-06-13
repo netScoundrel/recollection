@@ -9,7 +9,7 @@ export class Layout extends Component {
   render () {
     return (
       <React.Fragment>
-        <Header />
+        <Header handleLogout={this.props.handleLogout} />
         <Content username={this.props.username} userId={this.props.userId} />
       </React.Fragment>
     )}
