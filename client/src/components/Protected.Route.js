@@ -7,10 +7,8 @@ export const ProtectedRoute = ({component: Component, ...rest}) => (
         <Route {...rest} render={(props) => (
             Auth.isAuthenticated() === true
             ? <Component {...props} username={rest.username} userId={rest.userId} />
-            : null
+            : <Redirect to="/" />
         )} />
 )
-
-
 
 

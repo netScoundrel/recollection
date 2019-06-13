@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Layout } from './components/Layout';
 import { GamePageLayout } from './components/GamePageLayout';
 import 'antd/dist/antd.css';
-import WrappedNormalLoginForm from './components/Login';
+import { Login } from './components/Login';
 import {Switch, Redirect, Route} from 'react-router-dom';
 import WrappedRegistrationForm from './components/Register';
 import './App.css';
@@ -52,13 +52,25 @@ export default class App extends Component {
   render () {
     return (
       <div className="App">
-        <Switch>
-          <Route exact path="/" render={() => <WrappedNormalLoginForm handleChange={this.handleChange} />} />
-          <Route path="/register" component={WrappedRegistrationForm} />
-          <ProtectedRoute username={this.state.name} userId={this.state.userId} exact path="/feed" component={Layout} />
-          <ProtectedRoute username={this.state.name} exact path="/games" component={GamePageLayout} />
-          <Route path="*" component={Error} />
-        </Switch>
+        
+          {Auth.isAuthenticated() 
+          ? (
+            <Switch>
+              <Redirect exact from='/' to='/feed' />
+              <Route username={this.state.name} userId={this.state.userId} exact path="/feed" component={Layout}/>
+              <Route username={this.state.name} exact path="/games" component={GamePageLayout} />
+              <Route path="*" component={Error} />
+            </Switch>
+          ) 
+          : (
+            <Switch>
+              <Route exact path="/" render={() => <Login handleChange={this.handleChange} />} />
+              <Route path="/register" component={WrappedRegistrationForm} />
+              <Redirect from='/feed' to='/' />
+              <Route path="*" component={Error} />
+            </Switch>
+          )}
+        
       </div>
     );
   }

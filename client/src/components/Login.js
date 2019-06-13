@@ -1,101 +1,125 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Auth from '../Auth';
 import './Login.css';
+
 
 import {
   Form, Icon, Input, Button,
 } from 'antd';
 
-class Login extends React.Component {
+export class Login extends React.Component {
   // Initializing important variables
   constructor(domain){
     super(domain);
     //THIS LINE IS ONLY USED WHEN YOU'RE IN PRODUCTION MODE!
     this.domain = domain || "http://localhost:3000"; // API server domain
 
-    this.handleSwap = this.handleSwap.bind(this);
+    this.emailHandleChange = this.emailHandleChange.bind(this);
+    this.passwordHandleChange = this.passwordHandleChange.bind(this);
   }
 
   state = {
-    isRegistering: false
+    email: '',
+    password: ''
   }
 
-  handleSwap(){
-    this.setState({isRegistering: !this.state.isRegistering})
-  }
+
   
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        axios.post('/api/login', values)
-            .then((res) => {                
-                if(res.data.success === true){
-                  this.props.handleChange();
-                  window.localStorage.setItem("auth_token", res.data.token);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-      }
-    });
+    let values = {email : this.state.email, password: this.state.password};
+    axios.post('/api/login', values)
+        .then((res) => {                
+            if(res.data.success === true){
+              this.props.handleChange();
+              window.localStorage.setItem("auth_token", res.data.token);
+
+              this.context.history.push('/feed');
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+  }
+
+  emailHandleChange = (e) => {
+    this.setState({email: e.target.value})
+  }
+
+  passwordHandleChange = (e) => {
+    this.setState({password: e.target.value})
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form;
 
     return (
-      <div className="body-wrap">
-        <div className="header">
-          <h1>Welcome to Recollection</h1>
-        </div>
-        <div className="intro">
-          <h5>Recollection is a blog.</h5> 
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in nibh nulla. Nullam facilisis eget purus vitae ornare. Quisque pulvinar in dui vel semper. 
-          Etiam mattis, justo in rhoncus tincidunt, ante augue pulvinar dui, vitae sollicitudin nunc arcu pharetra arcu. Mauris semper elit a aliquam varius. Curabitur ornare lobortis eros eu viverra. 
-          Proin euismod, augue quis viverra consequat, lacus velit feugiat quam, eget blandit nisl lectus et nibh. Phasellus nec turpis at orci fermentum pretium. Aliquam at mauris ipsum. Etiam quis nibh nec 
-          nibh vestibulum gravida. {process.env.NODE_ENV}</p>
+      <div className="limiter">
+        <div className="container-login100">
+          <div className="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
+            <form className="login100-form validate-form">
+              <span className="login100-form-title p-b-55">
+                  Login
+              </span>
 
-        </div>
-        {this.state.isRegistering ?(
-            <h1>true</h1>
-        ) : (
-        <h1>false</h1>
-        )
-        }
-        <Form onSubmit={this.handleSubmit} id="help" className="login-form" method="POST" action="/api/login">
-          <h5>Start using Recollection now!</h5>
-          <Form.Item>
-            {getFieldDecorator('email', {
-              rules: [{type: 'email', message: 'The input is not valid E-mail'}, { required: true, message: 'Please input your email!' }],
-            })(
-              <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="E-mail:" />
-            )}
-          </Form.Item>
-          <Form.Item>
-            {getFieldDecorator('password', {
-              rules: [{ required: true, message: 'Please input your Password!' }],
-            })(
-              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password:" />
-            )}
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" className="login-form-button">
-              Log in
-            </Button>
-            Or <Link onClick={this.handleSwap}>register now!</Link>
-          </Form.Item>
-        </Form>
+              <div className="wrap-input100 validate-input m-b-16" data-validate="Valid email is required: ex@abc.xyz">
+                <input className="input100" type="text" name="email" placeholder="Email" onChange={this.emailHandleChange} />
+                <span className="focus-input100" />
+                <span className="symbol-input100">
+                  <span className="lnr lnr-envelope" />
+                </span>
+              </div>
+
+              <div className="wrap-input100 validate-input m-b-16" data-validate="Password is required">
+                <input className="input100" type="password" name="pass" placeholder="Password" onChange={this.passwordHandleChange} />
+                <span className="focus-input100" />
+                <span className="symbol-input100">
+                  <span className="lnr lnr-lock" />
+                </span>
+              </div>
+
+              <div className="contact100-form-checkbox m-l-4">
+                <input className="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" />
+                <label className="label-checkbox100" htmlFor="ckb1">
+                    Remember me
+                </label>
+              </div>
+
+              <div className="container-login100-form-btn p-t-25">
+                <button className="login100-form-btn" onClick={this.handleSubmit}>
+                    Login
+                </button>
+              </div>
+
+              <div className="text-center w-full p-t-42 p-b-22">
+                <span className="txt1">
+                    Or login with
+                </span>
+              </div>
+              <a href="#" className="btn-face m-b-10">
+                <i className="fa fa-facebook-official" />
+                  Facebook
+              </a>
+              <a href="#" className="btn-google m-b-10">
+                <img src="images/icons/icon-google.png" alt="GOOGLE" />
+                  Google
+              </a>
+                <div className="text-center w-full p-t-115">
+                  <span className="txt1">
+                    Not a member?
+                  </span>
+                  <Link className="txt1 bo1 hov1" to="/register" style={{marginLeft: 5}}>
+                    Sign up now							
+                  </Link>
+              </div>
+              </form>
+            </div>
+          </div>
       </div>
 
     );
   }
 }
 
-const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(Login);
-
-export default WrappedNormalLoginForm;
 
