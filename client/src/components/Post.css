@@ -1,6 +1,6 @@
 .post-wrapper{
     height: 400px;
-    weight: 500px;
+    width: 500px;
     background: white;
     margin-bottom: 20px;
 
@@ -47,4 +47,29 @@
 
 .post-wrapper:last-child{
     margin-bottom: 0;
+}
+
+
+.container-post{
+    width: 100% !important;
+    padding: 0;
+}
+
+.col-md{
+    width: 100%;
+    padding: 0;
+}
+
+div.panel.panel-default{
+    width: 100%;
+    max-width: 700px;
+}
+
+.media-body{
+    text-align: left;
+}
+
+.post-title{
+    font-weight: 700;
+    font-size: 18px;
 }

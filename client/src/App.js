@@ -25,17 +25,18 @@ export default class App extends Component {
   state = {
     auth: Auth.authenticated,
     name: "",
-    userId: ""
+    userId: "",
+    avatarId: ""
   }
 
-  handleChange(name="", userId=""){
+  handleChange(name="", userId="", avatarId=""){
     Auth.login(() => {});
-    this.setState({auth: Auth.authenticated, name, userId});
+    this.setState({auth: Auth.authenticated, name, userId, avatarId});
   }
 
   handleLogout = () => {
     Auth.logout(() => {});
-    this.setState({auth: Auth.authenticated, name: "", userId: ""});
+    this.setState({auth: Auth.authenticated, name: "", userId: "", avatarId: ""});
     window.localStorage.clear();
   }
 
@@ -46,7 +47,7 @@ export default class App extends Component {
         .then((res) => {
           if(res.data.success = true){
             Auth.login(() => {});
-            this.setState({auth: Auth.authenticated, name: res.data.authDate.username, userId: res.data.userId});
+            this.setState({auth: Auth.authenticated, name: res.data.authDate.username, userId: res.data.userId, avatarId: res.data.avatarId});
           }
         })
         .catch((err) => {
@@ -64,7 +65,7 @@ export default class App extends Component {
           ? (
             <Switch>
               <Redirect exact from='/' to='/feed' />
-              <Route exact path="/feed" render={(routeProps) => <Layout {...routeProps} {...this.props} username={this.state.name} userId={this.state.userId} handleLogout={this.handleLogout} />}/>
+              <Route exact path="/feed" render={(routeProps) => <Layout {...routeProps} {...this.props} username={this.state.name} userId={this.state.userId} avatarId={this.state.avatarId} handleLogout={this.handleLogout} />}/>
               <Route username={this.state.name} exact path="/games" component={GamePageLayout} />
               <Route path="*" component={Error} />
             </Switch>

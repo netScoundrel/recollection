@@ -44,6 +44,7 @@ app.post('/api/register', (req, res, next) => {
         err.status = 400;
         return next(err);
       }
+      const avatarId = Math.floor(Math.random() * 9) + 1;
       const users = db.collection('users');
       users.find().sort({userId: -1}).limit(1).toArray((err, docs) => {
         let nextId;
@@ -55,11 +56,11 @@ app.post('/api/register', (req, res, next) => {
         catch{
           nextId = "1";
         }
-
         finally{
           // create object with form input
           const userData = {
             userId: nextId,
+            avatarId: avatarId,
             isAdmin: false,
             email: req.body.email,
             username: req.body.username,
@@ -103,7 +104,8 @@ app.post('/api/login', (req, res, next) => {
               message: 'successfully authenticated',
               token,
               username: owner.username,
-              userId: owner.userId
+              userId: owner.userId,
+              avatarId: owner.avatarId
             });
           })          
       }
@@ -163,6 +165,7 @@ app.post('/api/check-auth', (req, res, next) => {
         res.json({
           success: true,
           userId: user.userId,
+          avatarId: user.avatarId,
           isAdmin: user.isAdmin,
           authDate
         })

@@ -13,6 +13,11 @@ const UserSchema = new mongoose.Schema({
       unique: true,
       required: true
     },
+    avatarId: {
+      type: String,
+      unique: false,
+      required: true
+    },
     isAdmin: {
       type: Boolean,
       unique: false,

@@ -12,6 +12,10 @@ export class Post extends Component {
       const title = this.props.title;
       const text = this.props.text;
 
+
+      const avatarId = this.props.avatarId;
+      const path = `images/avatars/${avatarId}.png`;
+
     return (
       // <div className="post-wrapper">
       //   <div className="post-header">
@@ -27,8 +31,8 @@ export class Post extends Component {
       // </div>
 
 
-      <div className="container">
-  <div className="col-md-5">
+      <div className="container-post">
+  <div className="col-md">
     <div className="panel panel-default">
       <div className="panel-body">
         <section className="post-heading">
@@ -37,11 +41,11 @@ export class Post extends Component {
               <div className="media">
                 <div className="media-left">
                   <a href="#">
-                    <img className="media-object photo-profile" src="http://0.gravatar.com/avatar/38d618563e55e6082adf4c8f8c13f3e4?s=40&d=mm&r=g" width={40} height={40} alt="..." />
+                    <img className="media-object photo-profile" src={path} width={40} height={40} alt="..." />
                   </a>
                 </div>
                 <div className="media-body">
-                  <a href="#" className="anchor-username"><h4 className="media-heading">Bayu Darmantra</h4></a> 
+                  <a href="#" className="anchor-username"><h4 className="media-heading">Owner</h4></a> 
                   <a href="#" className="anchor-time">51 mins</a>
                 </div>
               </div>
@@ -52,21 +56,15 @@ export class Post extends Component {
           </div>             
         </section>
         <section className="post-body">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras 
-            turpis sem, dictum id bibendum eget, malesuada ut massa. Ut scel
-            erisque nulla sed luctus dapibus. Nulla sit amet mi vitae purus sol
-            licitudin venenatis. Praesent et sem urna. Integer vitae lectus nis
-            l. Fusce sapien ante, tristique efficitur lorem et, laoreet ornare lib
-            ero. Nam fringilla leo orci. Vivamus semper quam nunc, sed ornare magna dignissim sed. Etiam interdum justo quis risus
-            efficitur dictum. Nunc ut pulvinar quam. N
-            unc mollis, est a dapibus dignissim, eros elit tempor diam, eu tempus quam felis eu velit.</p>
+          <span class="post-title">{this.props.title}</span>
+          <p>{this.props.text}</p>
         </section>
         <section className="post-footer">
           <hr />
           <div className="post-footer-option container">
             <ul className="list-unstyled">
-              <li><a href="#"><i className="glyphicon glyphicon-thumbs-up" /> Like</a></li>
-              <li><a href="#"><i className="glyphicon glyphicon-comment" /> Comment</a></li>
+              <li><a href="#"><i className="glyphicon glyphicon-thumbs-up" /> Like num</a></li>
+              <li><a href="#"><i className="glyphicon glyphicon-comment" /> Comments</a></li>
             </ul>
           </div>
           <div className="post-footer-comment-wrapper">
