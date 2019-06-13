@@ -1,4 +1,3 @@
-import { Card } from 'antd';
 import { ThreeDots } from './ThreeDots';
 
 

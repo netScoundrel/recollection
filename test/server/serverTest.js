@@ -1,9 +1,10 @@
 process.env.NODE_ENV = 'test';
-import express from 'express';
-let mongoose = require("mongoose");
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let should = chai.should();
+const express = require ("express");
+const mongoose = require("mongoose");
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const should = chai.should();
+
 mongoose.connect("mongodb+srv://Allener:K7xAkLCP87DiUw8_@tripper-xnz5n.mongodb.net/test?retryWrites=true");
 
 chai.use(chaiHttp);

@@ -5,10 +5,6 @@ import Auth from '../Auth';
 import './Login.css';
 
 
-import {
-  Form, Icon, Input, Button,
-} from 'antd';
-
 export class Login extends React.Component {
   // Initializing important variables
   constructor(domain){

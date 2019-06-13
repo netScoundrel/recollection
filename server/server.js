@@ -53,7 +53,7 @@ app.post('/api/register', (req, res, next) => {
           nextId = (parseInt(lastId) + 1).toString();
         }
         catch{
-          nextId = "0";
+          nextId = "1";
         }
 
         finally{
@@ -134,7 +134,7 @@ app.post('/api/post', (req, res, next) => {
           nextPostId = (parseInt(lastPostId) + 1).toString();
         }
         catch{
-          nextPostId = '0';
+          nextPostId = '1';
         }
         finally{
           Post.create({title: req.body.title, text: req.body.text, publishDate: new Date(), ownerId: owner.userId, postId: nextPostId});
