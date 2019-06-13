@@ -70,7 +70,7 @@ export class Post extends Component {
           </div>             
         </section>
         <section className="post-body">
-          <span class="post-title">{this.props.title}</span>
+          <span className="post-title">{this.props.title}</span>
           <p className="post-text">{this.props.text}</p>
         </section>
         <section className="post-footer">

@@ -8,7 +8,7 @@ import WrappedRegistrationForm from './components/Register';
 import './App.css';
 import axios from 'axios';
 import { Error } from './components/Error';
-import {ProtectedRoute} from './components/Protected.Route';
+import { Profile } from './components/Profile';
 import Auth from './Auth';
 
 export default class App extends Component {
@@ -66,7 +66,8 @@ export default class App extends Component {
             <Switch>
               <Redirect exact from='/' to='/feed' />
               <Route exact path="/feed" render={(routeProps) => <Layout {...routeProps} {...this.props} username={this.state.name} userId={this.state.userId} avatarId={this.state.avatarId} handleLogout={this.handleLogout} />}/>
-              <Route username={this.state.name} exact path="/games" component={GamePageLayout} />
+              <Route username={this.state.name} path="/games" component={GamePageLayout} />
+              <Route path="/profile*" component={Profile} />
               <Route path="*" component={Error} />
             </Switch>
           ) 
