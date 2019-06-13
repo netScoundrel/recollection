@@ -57,7 +57,7 @@ export default class App extends Component {
           ? (
             <Switch>
               <Redirect exact from='/' to='/feed' />
-              <Route username={this.state.name} userId={this.state.userId} exact path="/feed" component={Layout}/>
+              <Route exact path="/feed" render={(routeProps) => <Layout {...routeProps} {...this.props} username={this.state.name} userId={this.state.userId} />}/>
               <Route username={this.state.name} exact path="/games" component={GamePageLayout} />
               <Route path="*" component={Error} />
             </Switch>
