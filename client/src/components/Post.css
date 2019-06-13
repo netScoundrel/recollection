@@ -73,3 +73,7 @@ div.panel.panel-default{
     font-weight: 700;
     font-size: 18px;
 }
+
+.post-text{
+    text-align: justify;
+}

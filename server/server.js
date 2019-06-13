@@ -230,6 +230,17 @@ app.post('/api/edit-post', (req, res, next) =>{
   })
 });
 
+app.post('/api/load-avatar', (req, res, next) => {
+  const users = db.collection('users');
+  users.find({userId: req.body.ownerId}).toArray((err, doc) => {
+    const user = doc[0];
+
+    res.json({
+      avatarId: user.avatarId,
+      username: user.username
+    })
+  })
+})
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 

@@ -1,4 +1,5 @@
 import { ThreeDots } from './ThreeDots';
+import axios from 'axios';
 
 
 import React, { Component, useImperativeHandle } from 'react';
@@ -7,14 +8,27 @@ import './Post.css';
 import logo from '../img/sun.svg';
 
 export class Post extends Component {
+
+  state = {
+    avatarId: '0',
+    username: 'Owner'
+  }
+
+  componentDidMount(){
+    axios.post('/api/load-avatar', {ownerId: this.props.ownerId})
+      .then((res) => {
+        this.setState({avatarId: res.data.avatarId, username: res.data.username})
+      })
+      .catch((err) => console.log(err.message))
+  }
+
   render() {
 
       const title = this.props.title;
       const text = this.props.text;
 
 
-      const avatarId = this.props.avatarId;
-      const path = `images/avatars/${avatarId}.png`;
+      const path = `images/avatars/${this.state.avatarId}.png`;
 
     return (
       // <div className="post-wrapper">
@@ -45,7 +59,7 @@ export class Post extends Component {
                   </a>
                 </div>
                 <div className="media-body">
-                  <a href="#" className="anchor-username"><h4 className="media-heading">Owner</h4></a> 
+                  <a href="#" className="anchor-username"><h4 className="media-heading">{this.state.username}</h4></a> 
                   <a href="#" className="anchor-time">51 mins</a>
                 </div>
               </div>
@@ -57,7 +71,7 @@ export class Post extends Component {
         </section>
         <section className="post-body">
           <span class="post-title">{this.props.title}</span>
-          <p>{this.props.text}</p>
+          <p className="post-text">{this.props.text}</p>
         </section>
         <section className="post-footer">
           <hr />
