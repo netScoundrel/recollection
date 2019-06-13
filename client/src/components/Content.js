@@ -19,7 +19,7 @@ export default class Content extends Component {
     this.fetchData();
     setInterval(() => {
       this.fetchData();
-    }, 15000)
+    }, 1000)
   }
 
 

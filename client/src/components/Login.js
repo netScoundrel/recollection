@@ -29,7 +29,7 @@ export class Login extends React.Component {
     axios.post('/api/login', values)
         .then((res) => {                
             if(res.data.success === true){
-              this.props.handleChange();
+              this.props.handleChange(res.data.username, res.data.userId);
               window.localStorage.setItem("auth_token", res.data.token);
 
               this.context.history.push('/feed');

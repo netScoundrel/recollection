@@ -28,9 +28,9 @@ export default class App extends Component {
     userId: ""
   }
 
-  handleChange(){
+  handleChange(name="", userId=""){
     Auth.login(() => {});
-    this.setState({auth: Auth.authenticated});
+    this.setState({auth: Auth.authenticated, name, userId});
   }
 
   handleLogout = () => {

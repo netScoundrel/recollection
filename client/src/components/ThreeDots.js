@@ -38,7 +38,7 @@ export class ThreeDots extends Component {
             <DropdownButton drop="left" title="...">
                 {hasRightToEdit ?(
                     <React.Fragment>
-                        <Dropdown.Item onclick={this.handleClickEdit} eventKey="1"> <Icon type="edit" />  Edit</Dropdown.Item>
+                        <Dropdown.Item onClick={this.handleClickEdit} eventKey="1"> <Icon type="edit" />  Edit</Dropdown.Item>
                         <Dropdown.Item onClick={this.handleClickDelete} eventKey="2"> <Icon type="delete" />  Delete</Dropdown.Item>
                     </React.Fragment>
                 ) : (

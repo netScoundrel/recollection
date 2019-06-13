@@ -101,7 +101,9 @@ app.post('/api/login', (req, res, next) => {
             res.json({
               success: true,
               message: 'successfully authenticated',
-              token
+              token,
+              username: owner.username,
+              userId: owner.userId
             });
           })          
       }
@@ -144,11 +146,6 @@ app.post('/api/post', (req, res, next) => {
   } else {
     throw new Error('Fields are necessary!');
   }
-
-  
-  res.json({
-    
-  })
 });
 
 // POST /check-auth : --If spa was refreshed then checks if token is still valid.
