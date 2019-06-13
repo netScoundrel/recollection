@@ -22,13 +22,13 @@ export class ThreeDots extends Component {
     }
 
     handleClickDelete = () => {
-            axios.post('/api/delete-post', this.props)
-                .then((res) => {
-                    
-                })
-                .catch((err) => console.log(err.message))
+        axios.post('/api/delete-post', this.props)
+            .then((res) => {
+                
+            })
+            .catch((err) => console.log(err.message))
 
-            this.props.fetchData();
+        this.props.fetchData();
     }
 
 
