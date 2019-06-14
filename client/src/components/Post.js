@@ -5,7 +5,7 @@ import axios from 'axios';
 import React, { Component, useImperativeHandle } from 'react';
 
 import './Post.css';
-import logo from '../img/sun.svg';
+
 
 export class Post extends Component {
 
@@ -23,15 +23,13 @@ export class Post extends Component {
   }
 
   handleLikes = () => {
-    // const likes = this.props.likes;
-    // const { userId } = likes;
-    // if(likes.includes(this.props.userId)){
-    //   const index = likes.indexOf(this.props.userId);
-    //   this.props.changeState(likes.splice(index, 1));
-    // }
-    // else{
-    //   likes.push(this.props.userId);
-    // }
+    const userIds = this.props.likes.userId || [];
+    const isLikedByYou = userIds.includes(this.props.userId || false);
+
+
+    axios.post('/api/like', {userId: this.props.userId, postId: this.props.id})
+      .then((res) => console.log())
+      .catch((err) => console.log(err.message))
   }
 
   render() {
@@ -41,8 +39,11 @@ export class Post extends Component {
 
       const path = `images/avatars/${this.state.avatarId}.png`;
       
+
       const userIds = this.props.likes.userId || [];
-      const likedByYou = userIds.includes(this.props.id) ? 'glyphicon glyphicon-thumbs-up post-liked' : 'glyphicon glyphicon-thumbs-up';
+      const isLikedByYou = userIds.includes(this.props.userId) || false;
+      const className = isLikedByYou ? "post-liked" : "";
+      
 
     return (
 
@@ -78,7 +79,7 @@ export class Post extends Component {
           <hr />
           <div className="post-footer-option container">
             <ul className="list-unstyled">
-              <li><a href="#"><i className={likedByYou} onClick={this.handleLikes}/> {userIds.length}</a></li>
+              <li><p className={className}><i className="glyphicon glyphicon-thumbs-up" onClick={this.handleLikes}/> {userIds.length}</p></li>
               <li><a href="#"><i className="glyphicon glyphicon-comment" /> Comments</a></li>
             </ul>
           </div>

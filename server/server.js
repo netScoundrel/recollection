@@ -236,7 +236,22 @@ app.post('/api/load-avatar', (req, res, next) => {
       username: user.username
     })
   })
-})
+});
+
+app.post('/api/like', (req, res, next) => {
+  const { postId, userId } = req.body;
+  const posts = db.collection('posts');
+  posts.find({postId}).toArray((err, doc) => {
+    const post = doc[0];
+    if(post.likes.userId.includes(userId)){  
+      posts.findOneAndUpdate({postId}, { $set: {likes: {userId: post.likes.userId.filter(id => id !== userId)}}}, {}, () => {});
+    } else {
+      const newArray = post.likes.userId;
+      newArray.push(userId);
+      posts.findOneAndUpdate({postId}, { $set: {likes: {userId: newArray}}}, {}, () => {});
+    }
+  })
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
