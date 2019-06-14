@@ -38,7 +38,9 @@ export class Post extends Component {
 
       const title = this.props.title;
       const text = this.props.text;
-
+      let timeStamp = this.props.publishDate;
+      timeStamp = timeStamp.substr(0,19).replace("T", "  ").replace(new RegExp('-', 'g'), '/');
+      const date = timeStamp;
       const path = `images/avatars/${this.state.avatarId}.png`;
       
       const userIds = this.props.likes.userId || [];
@@ -61,7 +63,7 @@ export class Post extends Component {
                 </div>
                 <div className="media-body">
                   <a href="#" className="anchor-username"><h4 className="media-heading">{this.state.username}</h4></a> 
-                  <a href="#" className="anchor-time">51 mins</a>
+                  <a href="#" className="anchor-time">{date}</a>
                 </div>
               </div>
             </div>

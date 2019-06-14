@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link, Redirect } from 'react-router-dom';
-import Auth from '../Auth';
+import { Link } from 'react-router-dom';
 import './Login.css';
 
 

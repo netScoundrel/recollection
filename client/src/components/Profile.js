@@ -6,7 +6,7 @@ export class Profile extends Component {
     render(){
         return(
             <React.Fragment>
-                <Header />
+                <Header /> 
             </React.Fragment>
         )
     }

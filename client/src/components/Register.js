@@ -1,11 +1,5 @@
 import React from 'react';
-import axios from 'axios';
-import {Redirect, Link} from 'react-router-dom';
-
-
-import {
-    Form, Input, Tooltip, Icon, Select, Checkbox, Button, AutoComplete,
-  } from 'antd';
+import { Link } from 'react-router-dom';
 
     
   export class Register extends React.Component {
