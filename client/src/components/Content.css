@@ -3,7 +3,7 @@
     max-width: 1020px;
     height: 100%;
     min-height: 100vh;
-    background-color: rgb(221, 213, 224);
+    background-color: rgb(211, 237, 247);
     align-self: center;
 
     display: flex;
@@ -13,14 +13,14 @@
 .feed{
     width: 100%;
     max-width: 700px;
-    background-color: chocolate;
     margin-right: 20px;
+    background-color: rgb(192, 233, 247)
 }
 
 .right-sidebar{
     width: 100%;
     max-width: 300px;
-    background-color: aquamarine;
+    background-color: rgb(192, 233, 247)	;
 }
 
 img.profile-photo{
