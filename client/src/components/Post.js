@@ -22,11 +22,22 @@ export class Post extends Component {
       .catch((err) => console.log(err.message))
   }
 
+  handleLikes(){
+    const likes = this.props.likes;
+    console.log(likes);
+    // if(likes.includes(this.props.userId)){
+    //   const index = likes.indexOf(this.props.userId);
+    //   this.props.changeState(likes.splice(index, 1));
+    // }
+    // else{
+    //   likes.push(this.props.userId);
+    // }
+  }
+
   render() {
 
       const title = this.props.title;
       const text = this.props.text;
-
 
       const path = `images/avatars/${this.state.avatarId}.png`;
 
@@ -77,7 +88,7 @@ export class Post extends Component {
           <hr />
           <div className="post-footer-option container">
             <ul className="list-unstyled">
-              <li><a href="#"><i className="glyphicon glyphicon-thumbs-up" /> Like num</a></li>
+              <li><a href="#"><i className="glyphicon glyphicon-thumbs-up" onClick={this.handleLikes}/> {this.props.likes.length}</a></li>
               <li><a href="#"><i className="glyphicon glyphicon-comment" /> Comments</a></li>
             </ul>
           </div>
