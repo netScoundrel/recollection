@@ -56,6 +56,8 @@ export default class Content extends Component {
   }
 
   render() {
+    const path = `images/avatars/${this.props.avatarId}.png`;
+
 
     return (
       <div className="feed-content">
@@ -63,13 +65,19 @@ export default class Content extends Component {
 
           {
             this.state.posts.map(post => 
-              <Post key={post.postId} id={post.postId} title={post.title} text={post.text} fetchData={this.fetchData} changeState={this.changeState} likes={post.likes} username={this.props.username} userId={this.props.userId} avatarId={this.props.avatarId} ownerId={post.ownerId} />
+              <Post key={post.postId} id={post.postId} title={post.title} text={post.text} fetchData={this.fetchData} changeState={this.changeState} likes={post.likes} 
+              username={this.props.username} userId={this.props.userId} avatarId={this.props.avatarId} ownerId={post.ownerId} publishDate={post.publishDate}/>
               )
           }
           
         </div>
 
         <div className="right-sidebar">
+        <a href="#">
+          <img className="profile-photo" src={path} alt="..."/>
+          <p>Hi {this.props.username}!</p>
+        </a>
+
         <Form onSubmit={this.handleSubmit}>
           <Form.Group as={Row} controlId="formHorizontalEmail">
             <Form.Label column sm={2}>

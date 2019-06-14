@@ -22,3 +22,9 @@
     max-width: 300px;
     background-color: aquamarine;
 }
+
+img.profile-photo{
+    margin-top: 10px;
+    width: 50px;
+    height: 50px;
+}
