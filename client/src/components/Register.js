@@ -1,219 +1,137 @@
 import React from 'react';
 import axios from 'axios';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 
 
 import {
     Form, Input, Tooltip, Icon, Select, Checkbox, Button, AutoComplete,
   } from 'antd';
 
-  
-  const { Option } = Select;
-  const AutoCompleteOption = AutoComplete.Option;
-  
-  const residences = [{
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [{
-      value: 'hangzhou',
-      label: 'Hangzhou',
-      children: [{
-        value: 'xihu',
-        label: 'West Lake',
-      }],
-    }],
-  }, {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [{
-      value: 'nanjing',
-      label: 'Nanjing',
-      children: [{
-        value: 'zhonghuamen',
-        label: 'Zhong Hua Men',
-      }],
-    }],
-  }];
+    
+  export class Register extends React.Component {
+    constructor(){
+      super();
 
-  
-  class RegistrationForm extends React.Component {
+      this.usernameHandleChange = this.usernameHandleChange.bind(this);
+      this.emailHandleChange = this.emailHandleChange.bind(this);
+      this.passwordHandleChange = this.passwordHandleChange.bind(this);
+    }
+
+
     state = {
-      confirmDirty: false,
-      autoCompleteResult: [],
-      redirectToLogIn: false
+      username: "",
+      email: "",
+      password: "",
+      confirm: ""
     };
   
     handleSubmit = (e) => {
-      e.preventDefault();
-      this.props.form.validateFieldsAndScroll((err, values) => {
-        if (!err) {
-          console.log('Received values of form: ', values);
+      // e.preventDefault();
+      // this.props.form.validateFieldsAndScroll((err, values) => {
+      //   if (!err) {
+      //     console.log('Received values of form: ', values);
 
-          axios.post('api/register', values)
-          .then((res) => {
-              console.log(res);
+      //     axios.post('api/register', values)
+      //     .then((res) => {
+      //         console.log(res);
               
-              this.setState(prevState => ({
-                redirectToLogIn: !prevState.redirectToLogIn
-              }));
+      //         this.setState(prevState => ({
+      //           redirectToLogIn: !prevState.redirectToLogIn
+      //         }));
 
-          })
-          .catch((err) => {
-              console.log(err);
-          })
-        }
-      });
+      //     })
+      //     .catch((err) => {
+      //         console.log(err);
+      //     })
+      //   }
+      // });
+    }
+
+    usernameHandleChange = (e) => {
+      this.setState({username: e.target.value})
+    }
+
+    emailHandleChange = (e) => {
+      this.setState({email: e.target.value})
     }
   
-    handleConfirmBlur = (e) => {
-      const value = e.target.value;
-      this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    passwordHandleChange = (e) => {
+      this.setState({password: e.target.value})
     }
-  
-    compareToFirstPassword = (rule, value, callback) => {
-      const form = this.props.form;
-      if (value && value !== form.getFieldValue('password')) {
-        callback('Two passwords that you enter is inconsistent!');
-      } else {
-        callback();
-      }
-    }
-  
-    validateToNextPassword = (rule, value, callback) => {
-      const form = this.props.form;
-      if (value && this.state.confirmDirty) {
-        form.validateFields(['confirm'], { force: true });
-      }
-      callback();
-    }
-  
-    handleWebsiteChange = (value) => {
-      let autoCompleteResult;
-      if (!value) {
-        autoCompleteResult = [];
-      } else {
-        autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-      }
-      this.setState({ autoCompleteResult });
+
+    confirmHandleChange = (e) => {
+      this.setState({confirm: e.target.value})
     }
   
     render() {
-      const { getFieldDecorator } = this.props.form;
-      const { autoCompleteResult } = this.state;
 
-      const redirectToLogIn = this.state.redirectToLogIn;
-      if ( redirectToLogIn === true) {
-        return <Redirect to="/" />
-      }
-  
-      const formItemLayout = {
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 8 },
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 16 },
-        },
-      };
-      const tailFormItemLayout = {
-        wrapperCol: {
-          xs: {
-            span: 24,
-            offset: 0,
-          },
-          sm: {
-            span: 16,
-            offset: 8,
-          },
-        },
-      };
-      const prefixSelector = getFieldDecorator('prefix', {
-        initialValue: '86',
-      })(
-        <Select style={{ width: 70 }}>
-          <Option value="86">+86</Option>
-          <Option value="87">+87</Option>
-        </Select>
-      );
-  
-      const websiteOptions = autoCompleteResult.map(website => (
-        <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-      ));
-  
       return (
-        <Form {...formItemLayout} onSubmit={this.handleSubmit} id="register">
-          <Form.Item
-            label="E-mail"
-          >
-            {getFieldDecorator('email', {
-              rules: [{
-                type: 'email', message: 'The input is not valid E-mail!',
-              }, {
-                required: true, message: 'Please input your E-mail!',
-              }],
-            })(
-              <Input />
-            )}
-          </Form.Item>
-          <Form.Item
-            label="Password"
-          >
-            {getFieldDecorator('password', {
-              rules: [{
-                required: true, message: 'Please input your password!',
-              }, {
-                validator: this.validateToNextPassword,
-              }],
-            })(
-              <Input type="password" />
-            )}
-          </Form.Item>
-          <Form.Item
-            label="Confirm Password"
-          >
-            {getFieldDecorator('confirm', {
-              rules: [{
-                required: true, message: 'Please confirm your password!',
-              }, {
-                validator: this.compareToFirstPassword,
-              }],
-            })(
-              <Input type="password" onBlur={this.handleConfirmBlur} />
-            )}
-          </Form.Item>
-          <Form.Item
-            label={(
-              <span>
-                Username&nbsp;
-                <Tooltip title="What do you want others to call you?">
-                  <Icon type="question-circle-o" />
-                </Tooltip>
+        <div className="limiter">
+        <div className="container-login100">
+          <div className="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
+            <form className="login100-form validate-form">
+              <span className="login100-form-title p-b-55">
+                  Sign Up
               </span>
-            )}
-          >
-            {getFieldDecorator('username', {
-              rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
-            })(
-              <Input />
-            )}
-          </Form.Item>
 
-          <Form.Item {...tailFormItemLayout}>
-            {getFieldDecorator('agreement', {
-              valuePropName: 'checked',
-            })(
-              <Checkbox>I have read the <strong>agreement</strong></Checkbox>
-            )}
-          </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">Register</Button>
-          </Form.Item>
-        </Form>
+              <div className="wrap-input100 validate-input m-b-16" data-validate="Valid username is required: ex@abc.xyz">
+                <input className="input100" type="text" name="username" placeholder="Username" onChange={this.usernameHandleChange} />
+                <span className="focus-input100" />
+                <span className="symbol-input100">
+                  <span className="lnr lnr-user" />
+                </span>
+              </div>
+
+              <div className="wrap-input100 validate-input m-b-16" data-validate="Valid email is required: ex@abc.xyz">
+                <input className="input100" type="text" name="email" placeholder="Email" onChange={this.emailHandleChange} />
+                <span className="focus-input100" />
+                <span className="symbol-input100">
+                  <span className="lnr lnr-envelope" />
+                </span>
+              </div>
+
+              <div className="wrap-input100 validate-input m-b-16" data-validate="Password is required">
+                <input className="input100" type="password" name="password" placeholder="Password" onChange={this.passwordHandleChange} />
+                <span className="focus-input100" />
+                <span className="symbol-input100">
+                  <span className="lnr lnr-lock" />
+                </span>
+              </div>
+
+              <div className="wrap-input100 validate-input m-b-16" data-validate="Password is required">
+                <input className="input100" type="password" name="confirm" placeholder="Confirm Password" onChange={this.confirmHandleChange} />
+                <span className="focus-input100" />
+                <span className="symbol-input100">
+                  <span className="lnr lnr-lock" />
+                </span>
+              </div>
+
+              {/* <div className="contact100-form-checkbox m-l-4">
+                <input className="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" />
+                <label className="label-checkbox100" htmlFor="ckb1">
+                    Agree with terms
+                </label>
+              </div> */}
+
+              <div className="container-login100-form-btn p-t-25">
+                <button className="login100-form-btn" onClick={this.handleSubmit}>
+                    SIGN UP
+                </button>
+              </div>
+
+              
+              <div className="text-center w-full p-t-115">
+                  <span className="txt1">
+                    Already a member?
+                  </span>
+                  <Link className="txt1 bo1 hov1" to="/" style={{marginLeft: 5}}>
+                    Log in now							
+                  </Link>
+              </div>
+              </form>
+            </div>
+          </div>
+      </div>
       );
     }
   }
-  
-  const WrappedRegistrationForm = Form.create({ name: 'register' })(RegistrationForm);
-  
-export default WrappedRegistrationForm;

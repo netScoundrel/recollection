@@ -4,7 +4,7 @@ import { GamePageLayout } from './components/GamePageLayout';
 import 'antd/dist/antd.css';
 import { Login } from './components/Login';
 import {Switch, Redirect, Route} from 'react-router-dom';
-import WrappedRegistrationForm from './components/Register';
+import {Register} from './components/Register';
 import './App.css';
 import axios from 'axios';
 import { Error } from './components/Error';
@@ -74,7 +74,7 @@ export default class App extends Component {
           : (
             <Switch>
               <Route exact path="/" render={() => <Login handleChange={this.handleChange} />} />
-              <Route path="/register" component={WrappedRegistrationForm} />
+              <Route path="/register" component={Register} />
               <Redirect from='/feed' to='/' />
               <Route path="*" component={Error} />
             </Switch>

@@ -65,7 +65,7 @@ export class Post extends Component {
               </div>
             </div>
             <div className="col-md-1">
-              <a href="#"><i className="glyphicon glyphicon-chevron-down" /></a>
+              <ThreeDots id={this.props.id} username={this.props.username} fetchData={this.props.fetchData} userId={this.props.userId} ownerId={this.props.ownerId} />
             </div>
           </div>             
         </section>

@@ -12,3 +12,13 @@
     position: relative;
     z-index: 99;
  }
+
+.glyphicon.glyphicon-chevron-down:hover{
+   color: #232;
+   cursor: pointer;
+}
+
+.dropdown-menu{
+   margin-left: -135px;
+   
+}

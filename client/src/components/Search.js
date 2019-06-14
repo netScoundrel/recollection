@@ -30,9 +30,9 @@ export class Search extends Component {
     });
 
     document.querySelector('#field').setAttribute('style', 'visibility: visible;');
-    document.querySelector('.bar').setAttribute('style', 'background-color: whitesmoke; color: green');
-    document.querySelector('#srchbutton i').setAttribute('style', 'color: green;');
-    document.querySelector('#srchbutton').setAttribute('style', 'background: none;');
+    document.querySelector('.bar-search').setAttribute('style', 'background-color: whitesmoke; color: green');
+    document.querySelector('#srchbutton1 i').setAttribute('style', 'color: green;');
+    document.querySelector('#srchbutton1').setAttribute('style', 'background: none;');
 
     setTimeout(()=> {
       field.focus();
@@ -48,10 +48,10 @@ export class Search extends Component {
       isClickable: true
     })
 
-    document.querySelector('.bar').setAttribute('style', 'border: none;');
+    document.querySelector('.bar-search').setAttribute('style', 'border: none;');
     document.querySelector('#field').setAttribute('style', 'visibility: hidden;');
-    document.querySelector('#srchbutton i').setAttribute('style', 'color: whitesmoke;');
-    document.querySelector('#srchbutton').setAttribute('style', 'background: ;');
+    document.querySelector('#srchbutton1 i').setAttribute('style', 'color: whitesmoke;');
+    document.querySelector('#srchbutton1').setAttribute('style', 'background: ;');
   }
   
 
@@ -60,14 +60,14 @@ export class Search extends Component {
     const isClickable = this.state.isClickable ? '' : 'unclickable';
 
     return (
-        <div id="wrap">
+        <div id="wrap-search">
             <form action="" method="post" autoComplete="on">
 
-              <div className="bar">
-                <button id="srchbutton" className={isClickable} onClick={this.handleClick} type="submit">
-                  <i className="fas fa-search"></i>
+              <div className="bar-search">
+                <button id="srchbutton1" className={isClickable} onClick={this.handleClick} type="submit">
+                  <i className="lnr lnr-magnifier"></i>
                 </button>
-                <input id="field" onChange={this.handleChange} onBlur={this.handleBlur} name="search" className={isCollapsed} type="text" placeholder="Поиск"/>
+                <input id="field" onChange={this.handleChange} onBlur={this.handleBlur} name="search" className={isCollapsed} type="text" placeholder="Search"/>
               </div>
             </form>
         </div>

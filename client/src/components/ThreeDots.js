@@ -9,8 +9,21 @@ export class ThreeDots extends Component {
     constructor(){
         super();
 
+
+        this.handleClick = this.handleClick.bind(this);
         this.handleClickDelete = this.handleClickDelete.bind(this);
+
     }
+
+    state = {
+        show: false
+    }
+
+    handleClick = () => {
+        this.setState({show: !this.state.show})
+    }
+
+    
 
     handleClickEdit = () =>{
         axios.post('/api/edit-post', this.props)
@@ -33,19 +46,24 @@ export class ThreeDots extends Component {
 
 
     render() {
+
+        
+
         const hasRightToEdit = this.props.userId === this.props.ownerId ? true : false;
         return (
-            <DropdownButton drop="left" title="...">
-                {hasRightToEdit ?(
-                    <React.Fragment>
-                        <Dropdown.Item onClick={this.handleClickEdit} eventKey="1"> <Icon type="edit" />  Edit</Dropdown.Item>
-                        <Dropdown.Item onClick={this.handleClickDelete} eventKey="2"> <Icon type="delete" />  Delete</Dropdown.Item>
-                    </React.Fragment>
-                ) : (
-                    <Dropdown.Item eventKey="3"> <Icon type="warning" />  Report</Dropdown.Item>
-                )
-                }
-            </DropdownButton>
+                <React.Fragment>
+                    <i className="glyphicon glyphicon-chevron-down i" onClick={this.handleClick}/>
+                    <Dropdown.Menu show={this.state.show}>
+                        {hasRightToEdit ?(
+                            <React.Fragment>
+                                <Dropdown.Item onClick={this.handleClickEdit} eventKey="1"> <Icon type="edit" />  Edit</Dropdown.Item>
+                                <Dropdown.Item onClick={this.handleClickDelete} eventKey="2"> <Icon type="delete" />  Delete</Dropdown.Item>
+                            </React.Fragment>
+                        ) : (
+                        <Dropdown.Item eventKey="3"> <Icon type="warning" />  Report</Dropdown.Item>
+                        )}
+                    </Dropdown.Menu>
+                </React.Fragment>
         )
     }
 }
