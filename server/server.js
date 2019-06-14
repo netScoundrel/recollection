@@ -138,6 +138,9 @@ app.post('/api/post', (req, res, next) => {
         }
       })
     })
+    res.send(
+      `I received your POST request. This is what you sent me: Title: ${req.body.title} Text: ${req.body.text} Username: ${req.body.name}`
+    );
   } else {
     throw new Error('Fields are necessary!');
   }
