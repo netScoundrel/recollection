@@ -22,9 +22,9 @@ export class Post extends Component {
       .catch((err) => console.log(err.message))
   }
 
-  handleLikes(){
-    const likes = this.props.likes;
-    console.log(likes);
+  handleLikes = () => {
+    // const likes = this.props.likes;
+    // const { userId } = likes;
     // if(likes.includes(this.props.userId)){
     //   const index = likes.indexOf(this.props.userId);
     //   this.props.changeState(likes.splice(index, 1));
@@ -40,21 +40,11 @@ export class Post extends Component {
       const text = this.props.text;
 
       const path = `images/avatars/${this.state.avatarId}.png`;
+      
+      const userIds = this.props.likes.userId || [];
+      const likedByYou = userIds.includes(this.props.id) ? 'glyphicon glyphicon-thumbs-up post-liked' : 'glyphicon glyphicon-thumbs-up';
 
     return (
-      // <div className="post-wrapper">
-      //   <div className="post-header">
-      //     <div className="post-user">
-      //       <img src={logo} height="35" alt="logo"/>
-      //     </div>
-      //     <h4>{title}</h4>
-      //     <ThreeDots id={this.props.id} username={this.props.username} fetchData={this.props.fetchData} userId={this.props.userId} ownerId={this.props.ownerId} />
-      //   </div>
-      //   <div className="post-content">
-      //     <p>{text}</p>
-      //   </div>
-      // </div>
-
 
       <div className="container-post">
   <div className="col-md">
@@ -88,7 +78,7 @@ export class Post extends Component {
           <hr />
           <div className="post-footer-option container">
             <ul className="list-unstyled">
-              <li><a href="#"><i className="glyphicon glyphicon-thumbs-up" onClick={this.handleLikes}/> {this.props.likes.length}</a></li>
+              <li><a href="#"><i className={likedByYou} onClick={this.handleLikes}/> {userIds.length}</a></li>
               <li><a href="#"><i className="glyphicon glyphicon-comment" /> Comments</a></li>
             </ul>
           </div>

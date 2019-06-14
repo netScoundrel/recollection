@@ -42,3 +42,7 @@ div.panel.panel-default{
 .post-text{
     text-align: justify;
 }
+
+.post-liked{
+    color: red;
+}
