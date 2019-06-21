@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
     
   export class Register extends React.Component {
@@ -20,25 +21,13 @@ import { Link } from 'react-router-dom';
     };
   
     handleSubmit = (e) => {
-      // e.preventDefault();
-      // this.props.form.validateFieldsAndScroll((err, values) => {
-      //   if (!err) {
-      //     console.log('Received values of form: ', values);
+      e.preventDefault();
+      axios.post('api/register', this.state)
+        .then((res) =>{
+          console.log(res);
+        })
+        .catch((err) => console.log(err.message))
 
-      //     axios.post('api/register', values)
-      //     .then((res) => {
-      //         console.log(res);
-              
-      //         this.setState(prevState => ({
-      //           redirectToLogIn: !prevState.redirectToLogIn
-      //         }));
-
-      //     })
-      //     .catch((err) => {
-      //         console.log(err);
-      //     })
-      //   }
-      // });
     }
 
     usernameHandleChange = (e) => {

@@ -29,7 +29,9 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "concurrently": "^4.1.0",
-    "mocha": "^6.1.4"
+    "mocha": "^6.1.4",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2"
   },
   "description": "ISA Project",
   "main": "server.js",

@@ -35,6 +35,7 @@ export class ThreeDots extends Component {
     }
 
     handleClickDelete = () => {
+        console.log(this.props);
         axios.post('/api/delete-post', this.props)
             .then((res) => {
                 

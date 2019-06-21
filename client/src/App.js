@@ -45,7 +45,7 @@ export default class App extends Component {
     if(token){
       axios.post('api/check-auth', {token})
         .then((res) => {
-          if(res.data.success = true){
+          if(res.data.success === true){
             Auth.login(() => {});
             this.setState({auth: Auth.authenticated, name: res.data.authDate.username, userId: res.data.userId, avatarId: res.data.avatarId});
           }

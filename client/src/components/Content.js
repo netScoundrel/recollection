@@ -7,6 +7,7 @@ import './Content.css';
 
 export default class Content extends Component {
 
+
   state = {
     title: "",
     text: "",
@@ -17,11 +18,16 @@ export default class Content extends Component {
   componentDidMount(){
     
     this.fetchData();
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.fetchData();
     }, 1000)
   }
 
+  componentWillUnmount(){
+    clearInterval(this.interval);
+  }
+  
+  
 
   handleSubmit = (e) => {
     e.preventDefault();

@@ -25,65 +25,16 @@ const db = mongoose.connection;
 // mongo error
 db.on('error', console.error.bind(console, 'connection error:'));
 
-
-app.post('/api/register', (req, res, next) => {
-  if(req.body.email &&
-    req.body.username &&
-    req.body.password &&
-    req.body.confirm) {
-      // confirm that user typed same password twice
-      if (req.body.password !== req.body.confirm) {
-        const err = new Error('Passwords do not match.');
-        err.status = 400;
-        return next(err);
-      }
-      const avatarId = Math.floor(Math.random() * 9) + 1;
-      const users = db.collection('users');
-      users.find().sort({userId: -1}).limit(1).toArray((err, docs) => {
-        let nextId;
-        let lastId;
-        try {
-          lastId = docs[0].userId;
-          nextId = (parseInt(lastId) + 1).toString();
-        }
-        catch{
-          nextId = "1";
-        }
-        finally{
-          // create object with form input
-          const userData = {
-            userId: nextId,
-            avatarId: avatarId,
-            isAdmin: false,
-            email: req.body.email,
-            username: req.body.username,
-            password: req.body.password,
-          };
-          // use schema's `create` method to insert document into Mongo
-          User.create(userData);
-        }
-      });
-    } else {
-      const err = new Error('All fields required.');
-      err.status = 400;
-      return next(err);
-    }
-  res.send(
-    `I received your POST request. This is what you sent me: Email: ${req.body.email} Password: ${req.body.password} Username: ${req.body.username}`,
-);
-});
-
 // POST /login
-app.post('/api/login', (req, res, next) => {
+app.post('/api/login', (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
   if (email && password) {
     User.authenticate(email, password, (error, user) => {
       if (error || !user) {
-        const err = new Error('Wrong email or password.');
-        err.status = 401;
-        return next(err);
+        res.statusMessage = 'Wrong email or password';
+        res.status(401).end();
       }  else {
           
           const users = db.collection('users');
@@ -105,9 +56,67 @@ app.post('/api/login', (req, res, next) => {
     });
 
   } else {
-      const err = new Error('Email and password are required.');
-      err.status = 401;
-      return next(err);
+      res.statusMessage = 'Email and password are required.';
+      res.status(400).end();
+    }
+});
+
+// POST /register
+app.post('/api/register', (req, res, next) => {
+  if(req.body.email &&
+    req.body.username &&
+    req.body.password &&
+    req.body.confirm) {
+      // confirm that user typed same password twice
+      if (req.body.password !== req.body.confirm) {
+        res.statusMessage = 'passwords doesn\'t match';
+        res.status(401).end();
+      } else {
+        const users = db.collection('users');
+        const avatarId = Math.floor(Math.random() * 9) + 1;
+        users.find().sort({userId: -1}).limit(1).toArray((err, docs) => {
+          let nextId;
+          let lastId;
+          try {
+            lastId = docs[0].userId;
+            nextId = (parseInt(lastId) + 1).toString();
+          }
+          catch{
+            nextId = "1";
+          }
+          finally{
+            // create object with form input
+            const userData = {
+              userId: nextId,
+              avatarId: avatarId,
+              isAdmin: false,
+              email: req.body.email,
+              username: req.body.username,
+              password: req.body.password,
+            };
+            // use schema's `create` method to insert document into Mongo
+            User.create(userData);
+
+              // check if db has this user already
+            const users = db.collection('users');
+            users.find({email: req.body.email}).toArray((err, doc) => {
+              const user = doc[0];
+              if ( user === undefined ) {
+                res.send("User successfully created");
+                res.status(200).end();
+              } else {
+                res.send("There is a user with this email already");
+                res.status(401).end();
+              }
+            });
+          }
+        });
+      }
+
+      
+    } else {
+      res.statusMessage = 'All fields are required!';
+      res.status(400).end();
     }
 });
 
@@ -134,24 +143,24 @@ app.post('/api/post', (req, res, next) => {
           nextPostId = '1';
         }
         finally{
-          Post.create({title: req.body.title, text: req.body.text, publishDate: new Date(), ownerId: owner.userId, postId: nextPostId});
+          Post.create({title: req.body.title, text: req.body.text, publishDate: new Date(), ownerId: owner.userId, postId: nextPostId, likes: {userId: []}});
         }
       })
-    })
-    res.send(
-      `I received your POST request. This is what you sent me: Title: ${req.body.title} Text: ${req.body.text} Username: ${req.body.name}`
-    );
+    });
+    res.statusMessage = 'Post created';
+    res.status(200).end();
   } else {
-    throw new Error('Fields are necessary!');
+    res.statusMessage = 'All fields are required';
+    res.status(401).end();
   }
 });
 
 // POST /check-auth : --If spa was refreshed then checks if token is still valid.
-app.post('/api/check-auth', (req, res, next) => {
+app.post('/api/check-auth', (req, res) => {
   let token = req.body.token;
   jwt.verify(token, 'secret', (err, authDate) => {
     if(err) {
-      res.sendStatus(403);
+      res.status(403).end();
     } else {
 
       const users = db.collection('users');
@@ -194,7 +203,7 @@ app.post('/api/delete-post', (req, res, next) =>{
         res.send("Deleted");
       }
       else{
-        res.send("Rejected");
+        res.send('Rejected');
       }
     })
   })

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
     postId: {
@@ -27,11 +27,11 @@ const PostSchema = new mongoose.Schema({
         required: true,
     },
     likes:{
-        type: Array,
+        type: Object,
         unique: false,
         required: false,
     }
 });
 
 const Post = mongoose.model('Post', PostSchema);
-export default Post;
+module.exports = Post;
