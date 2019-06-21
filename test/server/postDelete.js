@@ -21,8 +21,11 @@ describe('Delete Tests', () => {
             .end((err, res) => {
                 res.res.text.should.equal('Deleted');
                 setTimeout(() => {
-                    done();
-                }, 500);
+                    posts.findOneAndDelete({postId: "999999991"}, {}, () => {
+                        done();
+                    });
+                }, 1000)
+                
             })
     });
     
