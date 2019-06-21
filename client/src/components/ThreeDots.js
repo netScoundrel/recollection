@@ -1,7 +1,7 @@
 import {Icon} from 'antd';
 import {Dropdown, DropdownButton} from 'react-bootstrap';
 import './ThreeDots.css';
-
+import { EditModal } from './EditModal';
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -16,7 +16,8 @@ export class ThreeDots extends Component {
     }
 
     state = {
-        show: false
+        show: false,
+        showModal: false
     }
 
     handleClick = () => {
@@ -26,12 +27,7 @@ export class ThreeDots extends Component {
     
 
     handleClickEdit = () =>{
-        axios.post('/api/edit-post', this.props)
-            .then((res) => {
-
-            })
-            .catch((err) => console.log(err.message))
-        this.props.fetchData();
+        this.setState({showModal: true})
     }
 
     handleClickDelete = () => {
@@ -47,12 +43,13 @@ export class ThreeDots extends Component {
 
 
     render() {
-
+        let modalClose = () => this.setState({ showModal: false });
         
 
         const hasRightToEdit = this.props.userId === this.props.ownerId ? true : false;
         return (
                 <React.Fragment>
+                    <EditModal showModal={this.state.showModal} modalClose={modalClose}/>
                     <i className="glyphicon glyphicon-chevron-down i" onClick={this.handleClick}/>
                     <Dropdown.Menu show={this.state.show}>
                         {hasRightToEdit ?(
